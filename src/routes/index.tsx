@@ -25,11 +25,11 @@ export const Route = createFileRoute("/")({
         content:
           "Berlin Machineries Private Limited engineers premium CNC Wire Cut EDM, Sinker EDM, EDM Drill, milling, grinding and lathe machines. 5000+ installations across India.",
       },
-      { property: "og:title", content: "Berlin Machineries — Engineered to Cut Beyond Limits" },
+      { property: "og:title", content: "Berlin Machineries — Precision CNC & EDM Machines Since 2008" },
       {
         property: "og:description",
         content:
-          "Premium CNC & EDM machinery for India's most demanding tool rooms. 18+ years, 5000+ installations, nationwide service.",
+          "Berlin Machineries Private Limited engineers premium CNC Wire Cut EDM, Sinker EDM, EDM Drill, milling, grinding and lathe machines. 5000+ installations across India.",
       },
       { property: "og:type", content: "website" },
     ],
