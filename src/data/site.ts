@@ -7,11 +7,11 @@ export const site = {
   website: "www.cncedmmachine.com",
   address: "Pune, Maharashtra, India",
   hours: "Mon – Sat · 9:30 AM – 6:30 PM",
-  since: 2008,
+  since: 2005,
 };
 
 export const stats = [
-  { value: 18, suffix: "+", label: "Years of engineering" },
+  { value: 20, suffix: "+", label: "Years of engineering" },
   { value: 5000, suffix: "+", label: "Installations across India" },
   { value: 1500, suffix: "+", label: "EDM machines delivered" },
   { value: 250, suffix: "+", label: "Cities served" },
@@ -32,7 +32,7 @@ export const industries = [
 ];
 
 export const whyBerlin = [
-  { title: "18+ Years Experience", body: "Since 2008 building precision machinery for Indian manufacturing." },
+  { title: "20+ Years Experience", body: "Since 2005 building precision machinery for Indian manufacturing." },
   { title: "5000+ Installations", body: "Trusted by thousands of tool rooms across every industrial state." },
   { title: "Pan India Service", body: "Field engineers within reach of every major industrial city." },
   { title: "Skilled Team", body: "Application engineers, service engineers and R&D under one roof." },
