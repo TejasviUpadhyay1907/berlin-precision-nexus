@@ -37,8 +37,10 @@ export const Route = createFileRoute("/products/$categorySlug/$machineSlug")({
 });
 
 function MachinePage() {
-  const { category, machine } = Route.useLoaderData();
-  const related = category.machines.filter((m) => m.slug !== machine.slug).slice(0, 3);
+  const { category, machine } = Route.useLoaderData() as {
+    category: (typeof categories)[number];
+    machine: (typeof categories)[number]["machines"][number];
+  };
 
   return (
     <div className="min-h-screen bg-white">

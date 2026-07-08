@@ -36,7 +36,7 @@ export const Route = createFileRoute("/products/$categorySlug/")({
 });
 
 function CategoryPage() {
-  const { category } = Route.useLoaderData();
+  const { category } = Route.useLoaderData() as { category: (typeof categories)[number] };
 
   return (
     <div className="min-h-screen bg-white">
