@@ -9,38 +9,183 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ServiceRouteImport } from './routes/service'
+import { Route as IndustriesRouteImport } from './routes/industries'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProductsIndexRouteImport } from './routes/products.index'
+import { Route as ProductsCategorySlugIndexRouteImport } from './routes/products.$categorySlug.index'
+import { Route as ProductsCategorySlugMachineSlugRouteImport } from './routes/products.$categorySlug.$machineSlug'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiceRoute = ServiceRouteImport.update({
+  id: '/service',
+  path: '/service',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndustriesRoute = IndustriesRouteImport.update({
+  id: '/industries',
+  path: '/industries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductsIndexRoute = ProductsIndexRouteImport.update({
+  id: '/products/',
+  path: '/products/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsCategorySlugIndexRoute =
+  ProductsCategorySlugIndexRouteImport.update({
+    id: '/products/$categorySlug/',
+    path: '/products/$categorySlug/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ProductsCategorySlugMachineSlugRoute =
+  ProductsCategorySlugMachineSlugRouteImport.update({
+    id: '/products/$categorySlug/$machineSlug',
+    path: '/products/$categorySlug/$machineSlug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/industries': typeof IndustriesRoute
+  '/service': typeof ServiceRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/products/': typeof ProductsIndexRoute
+  '/products/$categorySlug/$machineSlug': typeof ProductsCategorySlugMachineSlugRoute
+  '/products/$categorySlug/': typeof ProductsCategorySlugIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/industries': typeof IndustriesRoute
+  '/service': typeof ServiceRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/products': typeof ProductsIndexRoute
+  '/products/$categorySlug/$machineSlug': typeof ProductsCategorySlugMachineSlugRoute
+  '/products/$categorySlug': typeof ProductsCategorySlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/industries': typeof IndustriesRoute
+  '/service': typeof ServiceRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/products/': typeof ProductsIndexRoute
+  '/products/$categorySlug/$machineSlug': typeof ProductsCategorySlugMachineSlugRoute
+  '/products/$categorySlug/': typeof ProductsCategorySlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/industries'
+    | '/service'
+    | '/sitemap.xml'
+    | '/products/'
+    | '/products/$categorySlug/$machineSlug'
+    | '/products/$categorySlug/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/industries'
+    | '/service'
+    | '/sitemap.xml'
+    | '/products'
+    | '/products/$categorySlug/$machineSlug'
+    | '/products/$categorySlug'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/industries'
+    | '/service'
+    | '/sitemap.xml'
+    | '/products/'
+    | '/products/$categorySlug/$machineSlug'
+    | '/products/$categorySlug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
+  IndustriesRoute: typeof IndustriesRoute
+  ServiceRoute: typeof ServiceRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ProductsIndexRoute: typeof ProductsIndexRoute
+  ProductsCategorySlugMachineSlugRoute: typeof ProductsCategorySlugMachineSlugRoute
+  ProductsCategorySlugIndexRoute: typeof ProductsCategorySlugIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/service': {
+      id: '/service'
+      path: '/service'
+      fullPath: '/service'
+      preLoaderRoute: typeof ServiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industries': {
+      id: '/industries'
+      path: '/industries'
+      fullPath: '/industries'
+      preLoaderRoute: typeof IndustriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +193,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/products/': {
+      id: '/products/'
+      path: '/products'
+      fullPath: '/products/'
+      preLoaderRoute: typeof ProductsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/$categorySlug/': {
+      id: '/products/$categorySlug/'
+      path: '/products/$categorySlug'
+      fullPath: '/products/$categorySlug/'
+      preLoaderRoute: typeof ProductsCategorySlugIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/$categorySlug/$machineSlug': {
+      id: '/products/$categorySlug/$machineSlug'
+      path: '/products/$categorySlug/$machineSlug'
+      fullPath: '/products/$categorySlug/$machineSlug'
+      preLoaderRoute: typeof ProductsCategorySlugMachineSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
+  IndustriesRoute: IndustriesRoute,
+  ServiceRoute: ServiceRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ProductsIndexRoute: ProductsIndexRoute,
+  ProductsCategorySlugMachineSlugRoute: ProductsCategorySlugMachineSlugRoute,
+  ProductsCategorySlugIndexRoute: ProductsCategorySlugIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
