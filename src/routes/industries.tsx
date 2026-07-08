@@ -6,6 +6,17 @@ import { PageHero } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
 import { industries } from "@/data/site";
 
+import factory from "@/assets/factory.jpg";
+import sparks from "@/assets/edm-sparks.jpg";
+import hero from "@/assets/hero-machine.jpg";
+import wirecut from "@/assets/machine-wirecut.jpg";
+import sinker from "@/assets/machine-sinker.jpg";
+import milling from "@/assets/machine-milling.jpg";
+import grinder from "@/assets/machine-grinder.jpg";
+import drill from "@/assets/machine-drill.jpg";
+import lathe from "@/assets/machine-lathe.jpg";
+import radial from "@/assets/machine-radial.jpg";
+
 export const Route = createFileRoute("/industries")({
   head: () => ({
     meta: [
@@ -32,6 +43,20 @@ const details: Record<string, string> = {
   Manufacturing: "General manufacturing across scale and sector.",
 };
 
+const images: Record<string, string> = {
+  Automotive: milling,
+  Aerospace: hero,
+  Defense: radial,
+  Medical: grinder,
+  Electronics: drill,
+  "Die & Mold": factory,
+  "Precision Engineering": wirecut,
+  "Tool Room": lathe,
+  Energy: sparks,
+  "Research Institutes": sinker,
+  Manufacturing: factory,
+};
+
 function IndustriesPage() {
   return (
     <div className="min-h-screen bg-white">
@@ -45,12 +70,27 @@ function IndustriesPage() {
         <div className="container-x grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {industries.map((name, i) => (
             <Reveal key={name} delay={i * 0.04}>
-              <div className="group bg-white border border-border p-8 hover:border-berlin-red hover:-translate-y-1 transition-all duration-500 h-full">
-                <div className="flex items-center gap-3 text-[10px] font-semibold tracking-[0.25em] text-berlin-red">
-                  <span className="h-px w-6 bg-berlin-red" />{String(i + 1).padStart(2, "0")}
+              <div className="group relative overflow-hidden bg-white border border-border p-8 hover:border-berlin-red hover:-translate-y-1 transition-all duration-500 h-full cursor-pointer">
+                {/* Hover image overlay */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${images[name]})` }}
+                  aria-hidden
+                />
+                <div className="absolute inset-0 bg-graphite/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden />
+
+                {/* Content */}
+                <div className="relative">
+                  <div className="flex items-center gap-3 text-[10px] font-semibold tracking-[0.25em] text-berlin-red">
+                    <span className="h-px w-6 bg-berlin-red" />{String(i + 1).padStart(2, "0")}
+                  </div>
+                  <h3 className="mt-6 font-display font-bold text-2xl text-graphite group-hover:text-white transition-colors duration-500">
+                    {name}
+                  </h3>
+                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed group-hover:text-white/85 transition-colors duration-500">
+                    {details[name]}
+                  </p>
                 </div>
-                <h3 className="mt-6 font-display font-bold text-2xl text-graphite">{name}</h3>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{details[name]}</p>
               </div>
             </Reveal>
           ))}
