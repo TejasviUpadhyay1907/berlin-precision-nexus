@@ -41,6 +41,7 @@ function MachinePage() {
     category: (typeof categories)[number];
     machine: (typeof categories)[number]["machines"][number];
   };
+  const related = category.machines.filter((m) => m.slug !== machine.slug).slice(0, 3);
 
   return (
     <div className="min-h-screen bg-white">
