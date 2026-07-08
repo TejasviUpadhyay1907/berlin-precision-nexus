@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServiceRouteImport } from './routes/service'
 import { Route as IndustriesRouteImport } from './routes/industries'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -18,6 +19,11 @@ import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsCategorySlugIndexRouteImport } from './routes/products.$categorySlug.index'
 import { Route as ProductsCategorySlugMachineSlugRouteImport } from './routes/products.$categorySlug.$machineSlug'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServiceRoute = ServiceRouteImport.update({
   id: '/service',
   path: '/service',
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/industries': typeof IndustriesRoute
   '/service': typeof ServiceRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/products/': typeof ProductsIndexRoute
   '/products/$categorySlug/$machineSlug': typeof ProductsCategorySlugMachineSlugRoute
   '/products/$categorySlug/': typeof ProductsCategorySlugIndexRoute
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/industries': typeof IndustriesRoute
   '/service': typeof ServiceRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/products': typeof ProductsIndexRoute
   '/products/$categorySlug/$machineSlug': typeof ProductsCategorySlugMachineSlugRoute
   '/products/$categorySlug': typeof ProductsCategorySlugIndexRoute
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/industries': typeof IndustriesRoute
   '/service': typeof ServiceRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/products/': typeof ProductsIndexRoute
   '/products/$categorySlug/$machineSlug': typeof ProductsCategorySlugMachineSlugRoute
   '/products/$categorySlug/': typeof ProductsCategorySlugIndexRoute
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/industries'
     | '/service'
+    | '/sitemap.xml'
     | '/products/'
     | '/products/$categorySlug/$machineSlug'
     | '/products/$categorySlug/'
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/industries'
     | '/service'
+    | '/sitemap.xml'
     | '/products'
     | '/products/$categorySlug/$machineSlug'
     | '/products/$categorySlug'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/industries'
     | '/service'
+    | '/sitemap.xml'
     | '/products/'
     | '/products/$categorySlug/$machineSlug'
     | '/products/$categorySlug/'
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   IndustriesRoute: typeof IndustriesRoute
   ServiceRoute: typeof ServiceRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
   ProductsCategorySlugMachineSlugRoute: typeof ProductsCategorySlugMachineSlugRoute
   ProductsCategorySlugIndexRoute: typeof ProductsCategorySlugIndexRoute
@@ -138,6 +151,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/service': {
       id: '/service'
       path: '/service'
@@ -203,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   IndustriesRoute: IndustriesRoute,
   ServiceRoute: ServiceRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ProductsIndexRoute: ProductsIndexRoute,
   ProductsCategorySlugMachineSlugRoute: ProductsCategorySlugMachineSlugRoute,
   ProductsCategorySlugIndexRoute: ProductsCategorySlugIndexRoute,
