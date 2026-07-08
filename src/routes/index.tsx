@@ -19,13 +19,13 @@ import { site, stats, industries, whyBerlin, presence } from "@/data/site";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Berlin Machineries — Precision CNC & EDM Machines Since 2008" },
+      { title: "Berlin Machineries — Precision CNC & EDM Machines Since 2005" },
       {
         name: "description",
         content:
           "Berlin Machineries Private Limited engineers premium CNC Wire Cut EDM, Sinker EDM, EDM Drill, milling, grinding and lathe machines. 5000+ installations across India.",
       },
-      { property: "og:title", content: "Berlin Machineries — Precision CNC & EDM Machines Since 2008" },
+      { property: "og:title", content: "Berlin Machineries — Precision CNC & EDM Machines Since 2005" },
       {
         property: "og:description",
         content:
@@ -90,7 +90,7 @@ function Hero() {
             className="inline-flex items-center gap-3 text-[11px] font-semibold tracking-[0.3em] text-berlin-red"
           >
             <span className="h-px w-10 bg-berlin-red" />
-            SINCE 2008 · PUNE · INDIA
+            SINCE 2005 · PUNE · INDIA
           </motion.div>
 
           <motion.h1
