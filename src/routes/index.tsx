@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ArrowRight, Zap, Target, Shield, Cpu, Leaf, Award, Wrench, Phone } from "lucide-react";
 
 import heroImg from "@/assets/hero-machine.jpg";
@@ -14,7 +14,7 @@ import { Counter } from "@/components/site/Counter";
 import { CustomerMarquee } from "@/components/site/Marquee";
 import { SectionHeading, SectionEyebrow } from "@/components/site/Section";
 import { categories } from "@/data/products";
-import { site, stats, industries, whyBerlin, presence } from "@/data/site";
+import { site, stats, industries, whyBerlin } from "@/data/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -250,12 +250,12 @@ function ProductCategories() {
                 params={{ categorySlug: c.slug }}
                 className="group relative block bg-white overflow-hidden border border-border hover:border-berlin-red transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl"
               >
-                <div className="aspect-[5/3] overflow-hidden bg-muted">
+                <div className="aspect-[5/3] overflow-hidden bg-white p-4">
                   <img
                     src={c.image}
                     alt={c.name}
                     loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[900ms]"
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-[900ms]"
                   />
                 </div>
                 <div className="p-6">
@@ -391,38 +391,24 @@ function IndiaPresence() {
           />
         </Reveal>
 
-        <div className="mt-20 grid lg:grid-cols-[1fr_1.2fr] gap-16 items-center">
-          <div className="grid grid-cols-2 gap-6">
-            {[
-              { v: "250+", l: "Cities served" },
-              { v: "80+", l: "Service engineers" },
-              { v: "40+", l: "Dealer partners" },
-              { v: "20+", l: "States covered" },
-            ].map((s) => (
-              <Reveal key={s.l}>
-                <div className="border border-white/10 p-6 bg-white/[0.02] backdrop-blur-sm">
-                  <div className="font-display font-black text-4xl text-berlin-red">{s.v}</div>
-                  <div className="mt-2 text-sm text-white/70">{s.l}</div>
-                </div>
-              </Reveal>
-            ))}
-            <Reveal>
-              <div className="col-span-2 border border-white/10 p-6 bg-white/[0.02]">
-                <div className="text-[10px] tracking-[0.25em] text-berlin-red font-semibold">
-                  MAJOR INDUSTRIAL HUBS
-                </div>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {presence.flatMap((r) => r.cities).map((c) => (
-                    <span key={c} className="text-xs px-3 py-1.5 border border-white/15 text-white/80">
-                      {c}
-                    </span>
-                  ))}
-                </div>
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          {[
+            { v: "250+", l: "Cities served" },
+            { v: "80+", l: "Service engineers" },
+            { v: "40+", l: "Dealer partners" },
+            { v: "20+", l: "States covered" },
+          ].map((s) => (
+            <Reveal key={s.l}>
+              <div className="border border-white/10 p-5 bg-white/[0.02] text-center">
+                <div className="font-display font-black text-3xl md:text-4xl text-berlin-red">{s.v}</div>
+                <div className="mt-2 text-xs text-white/60">{s.l}</div>
               </div>
             </Reveal>
-          </div>
+          ))}
+        </div>
 
-          <Reveal delay={0.15}>
+        <div className="mt-16">
+          <Reveal delay={0.1}>
             <IndiaMap />
           </Reveal>
         </div>
@@ -432,47 +418,155 @@ function IndiaPresence() {
 }
 
 function IndiaMap() {
-  const pins = [
-    { x: 250, y: 380, name: "Pune" },
-    { x: 240, y: 340, name: "Mumbai" },
-    { x: 315, y: 460, name: "Bengaluru" },
-    { x: 380, y: 470, name: "Chennai" },
-    { x: 425, y: 300, name: "Kolkata" },
-    { x: 320, y: 200, name: "Delhi" },
-    { x: 200, y: 280, name: "Ahmedabad" },
-    { x: 375, y: 380, name: "Hyderabad" },
-    { x: 335, y: 495, name: "Coimbatore" },
-    { x: 275, y: 250, name: "Indore" },
+  const [hovered, setHovered] = useState<string | null>(null);
+
+  // Locations with proper geographic positioning on India map (viewBox 0 0 500 600)
+  // Coordinates approximate real positions on India outline
+  const locations = [
+    { name: "Pune", x: 195, y: 380, region: "West", info: "Head Office & Manufacturing Plant" },
+    { name: "Mumbai", x: 170, y: 345, region: "West", info: "Sales Office & Dealer Support" },
+    { name: "Ahmedabad", x: 165, y: 280, region: "West", info: "Regional Sales & Service Centre" },
+    { name: "Rajkot", x: 145, y: 290, region: "West", info: "Dealer Partner Network" },
+    { name: "Nashik", x: 185, y: 340, region: "West", info: "Service Support Centre" },
+    { name: "Delhi NCR", x: 230, y: 165, region: "North", info: "North India Service Centre" },
+    { name: "Ludhiana", x: 215, y: 130, region: "North", info: "Dealer & Service Network" },
+    { name: "Jaipur", x: 200, y: 210, region: "North", info: "Dealer Partner Network" },
+    { name: "Faridabad", x: 237, y: 175, region: "North", info: "Sales & Service Support" },
+    { name: "Bengaluru", x: 225, y: 450, region: "South", info: "South India Regional Office" },
+    { name: "Chennai", x: 270, y: 430, region: "South", info: "Sales & Application Support" },
+    { name: "Coimbatore", x: 235, y: 475, region: "South", info: "Dealer Partner Network" },
+    { name: "Hyderabad", x: 245, y: 380, region: "South", info: "Service & Dealer Support" },
+    { name: "Kolkata", x: 340, y: 280, region: "East", info: "East India Service Centre" },
+    { name: "Jamshedpur", x: 320, y: 270, region: "East", info: "Dealer Partner Network" },
+    { name: "Bhubaneswar", x: 320, y: 320, region: "East", info: "Service Support" },
+    { name: "Indore", x: 210, y: 290, region: "Central", info: "Central Region Dealer" },
+    { name: "Bhopal", x: 230, y: 275, region: "Central", info: "Dealer Partner" },
+    { name: "Nagpur", x: 255, y: 320, region: "Central", info: "Service & Dealer Network" },
   ];
+
+  const regionColors: Record<string, string> = {
+    West: "#C8102E",
+    North: "#E83A5F",
+    South: "#FF6B35",
+    East: "#FF8C42",
+    Central: "#D4413F",
+  };
+
   return (
-    <div className="relative aspect-square max-w-[560px] mx-auto">
-      <svg viewBox="0 0 600 600" className="w-full h-full">
-        <defs>
-          <linearGradient id="mapGrad" x1="0" x2="1" y1="0" y2="1">
-            <stop offset="0" stopColor="#C8102E" stopOpacity="0.15" />
-            <stop offset="1" stopColor="#C8102E" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        {/* stylised india silhouette */}
-        <path
-          d="M280 90 L340 110 L360 150 L400 180 L430 240 L450 290 L440 340 L420 380 L430 430 L400 470 L370 490 L340 510 L320 540 L300 560 L280 540 L260 500 L240 460 L220 420 L200 380 L190 340 L200 300 L210 260 L200 220 L215 180 L240 150 L260 120 Z"
-          fill="url(#mapGrad)"
-          stroke="rgba(255,255,255,0.25)"
-          strokeWidth="1"
-        />
-        {pins.map((p, i) => (
-          <g key={p.name} style={{ animation: `reveal-up 0.6s ${0.1 + i * 0.1}s both` }}>
-            <circle cx={p.x} cy={p.y} r="14" fill="#C8102E" opacity="0.15">
-              <animate attributeName="r" values="10;22;10" dur="2.4s" repeatCount="indefinite" begin={`${i * 0.2}s`} />
-              <animate attributeName="opacity" values="0.3;0;0.3" dur="2.4s" repeatCount="indefinite" begin={`${i * 0.2}s`} />
-            </circle>
-            <circle cx={p.x} cy={p.y} r="4" fill="#C8102E" />
-            <text x={p.x + 10} y={p.y + 4} fontSize="11" fill="rgba(255,255,255,0.7)" fontFamily="Inter">
-              {p.name}
-            </text>
-          </g>
+    <div className="relative max-w-[700px] mx-auto">
+      <div className="relative aspect-[5/6]">
+        <svg viewBox="0 0 500 600" className="w-full h-full" aria-label="Map of India showing Berlin Machineries presence">
+          <defs>
+            <linearGradient id="indiaFill" x1="0" y1="0" x2="0.5" y2="1">
+              <stop offset="0%" stopColor="#C8102E" stopOpacity="0.08" />
+              <stop offset="100%" stopColor="#C8102E" stopOpacity="0.02" />
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+              <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* Proper India outline - simplified but recognizable */}
+          <path
+            d="M215 60 L225 55 L240 58 L255 65 L265 60 L275 65 L285 70 L290 80 L285 90 L295 95 L305 90 L315 95 L320 105 L330 110 L340 120 L345 130 L350 140 L355 150 L360 165 L365 175 L370 190 L372 200 L370 210 L365 220 L368 235 L372 245 L375 260 L370 275 L365 285 L360 295 L355 305 L350 315 L345 325 L340 335 L330 340 L320 345 L315 355 L310 365 L305 375 L295 385 L285 395 L280 405 L275 420 L268 435 L260 448 L255 460 L250 470 L245 480 L240 490 L235 500 L228 510 L222 515 L218 510 L220 500 L225 488 L228 475 L225 465 L220 455 L215 445 L210 435 L205 425 L198 418 L192 425 L185 430 L178 425 L172 418 L168 408 L165 398 L160 388 L155 378 L150 368 L148 355 L145 345 L140 335 L135 320 L132 305 L130 290 L128 275 L130 265 L135 255 L138 245 L140 235 L138 225 L140 215 L145 205 L148 195 L152 185 L158 175 L162 165 L165 155 L170 145 L175 135 L180 125 L185 115 L190 105 L195 95 L200 85 L205 75 L210 65 Z"
+            fill="url(#indiaFill)"
+            stroke="rgba(200,16,46,0.3)"
+            strokeWidth="1.5"
+          />
+
+          {/* State boundary hints - subtle lines */}
+          <path d="M130 290 L255 320 L370 275" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" fill="none" />
+          <path d="M150 368 L260 380 L310 365" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" fill="none" />
+
+          {/* Location pins */}
+          {locations.map((loc, i) => (
+            <g
+              key={loc.name}
+              onMouseEnter={() => setHovered(loc.name)}
+              onMouseLeave={() => setHovered(null)}
+              className="cursor-pointer"
+              style={{ animation: `reveal-up 0.5s ${0.05 + i * 0.05}s both` }}
+            >
+              {/* Pulse ring */}
+              <circle cx={loc.x} cy={loc.y} r="8" fill={regionColors[loc.region]} opacity="0.15">
+                <animate
+                  attributeName="r"
+                  values="6;14;6"
+                  dur="3s"
+                  repeatCount="indefinite"
+                  begin={`${i * 0.15}s`}
+                />
+                <animate
+                  attributeName="opacity"
+                  values="0.2;0;0.2"
+                  dur="3s"
+                  repeatCount="indefinite"
+                  begin={`${i * 0.15}s`}
+                />
+              </circle>
+              {/* Pin dot */}
+              <circle
+                cx={loc.x}
+                cy={loc.y}
+                r={hovered === loc.name ? "6" : "4"}
+                fill={regionColors[loc.region]}
+                filter={hovered === loc.name ? "url(#glow)" : undefined}
+                className="transition-all duration-300"
+              />
+              {/* City label - only show for major cities or on hover */}
+              {(hovered === loc.name || ["Pune", "Mumbai", "Delhi NCR", "Bengaluru", "Chennai", "Kolkata", "Ahmedabad", "Hyderabad"].includes(loc.name)) && (
+                <text
+                  x={loc.x + (loc.x > 300 ? -8 : 10)}
+                  y={loc.y + (loc.y < 100 ? 16 : -8)}
+                  fontSize={hovered === loc.name ? "11" : "9"}
+                  fill={hovered === loc.name ? "#ffffff" : "rgba(255,255,255,0.6)"}
+                  fontFamily="Inter"
+                  fontWeight={hovered === loc.name ? "600" : "400"}
+                  textAnchor={loc.x > 300 ? "end" : "start"}
+                  className="transition-all duration-300"
+                >
+                  {loc.name}
+                </text>
+              )}
+            </g>
+          ))}
+        </svg>
+
+        {/* Hover tooltip */}
+        {hovered && (() => {
+          const loc = locations.find((l) => l.name === hovered);
+          if (!loc) return null;
+          return (
+            <div
+              className="absolute pointer-events-none z-10 bg-graphite-2 border border-white/20 px-4 py-3 shadow-2xl reveal-up"
+              style={{
+                left: `${(loc.x / 500) * 100}%`,
+                top: `${(loc.y / 600) * 100 - 12}%`,
+                transform: "translate(-50%, -100%)",
+              }}
+            >
+              <div className="text-[10px] tracking-[0.2em] font-semibold text-berlin-red">{loc.region.toUpperCase()} REGION</div>
+              <div className="mt-1 font-display font-bold text-sm text-white">{loc.name}</div>
+              <div className="mt-1 text-xs text-white/60">{loc.info}</div>
+              <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-white/20" />
+            </div>
+          );
+        })()}
+      </div>
+
+      {/* Region legend */}
+      <div className="mt-8 flex flex-wrap justify-center gap-4">
+        {Object.entries(regionColors).map(([region, color]) => (
+          <div key={region} className="flex items-center gap-2">
+            <div className="h-3 w-3 rounded-full" style={{ backgroundColor: color }} />
+            <span className="text-xs text-white/60">{region}</span>
+          </div>
         ))}
-      </svg>
+      </div>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { Mail, Phone, MapPin, Linkedin, Youtube, Facebook, Instagram } from "luc
 export function Footer() {
   return (
     <footer className="bg-graphite text-white/80">
-      <div className="container-x py-20 grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div className="container-x py-20 grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_0.8fr_1fr]">
         <div>
           <div className="flex items-center gap-3">
             <div className="h-11 w-11 grid place-items-center bg-berlin-red text-white font-black text-xl">B</div>
@@ -57,6 +57,15 @@ export function Footer() {
             <li><Link to="/industries" className="hover:text-berlin-red">Industries</Link></li>
             <li><Link to="/service" className="hover:text-berlin-red">Service</Link></li>
             <li><Link to="/contact" className="hover:text-berlin-red">Contact</Link></li>
+            <li><Link to="/careers" className="hover:text-berlin-red">Careers</Link></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="text-white text-sm font-semibold tracking-[0.2em]">RESOURCES</h4>
+          <ul className="mt-5 space-y-3 text-sm">
+            <li><Link to="/news" className="hover:text-berlin-red">News</Link></li>
+            <li><Link to="/blog" className="hover:text-berlin-red">Blog</Link></li>
           </ul>
         </div>
 

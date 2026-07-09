@@ -1,10 +1,12 @@
-import wirecut from "@/assets/machine-wirecut.jpg";
-import sinker from "@/assets/machine-sinker.jpg";
-import milling from "@/assets/machine-milling.jpg";
-import grinder from "@/assets/machine-grinder.jpg";
-import drill from "@/assets/machine-drill.jpg";
-import lathe from "@/assets/machine-lathe.jpg";
-import radial from "@/assets/machine-radial.jpg";
+import wirecut from "@/assets/1.svg";
+import sinker from "@/assets/2.svg";
+import znc from "@/assets/3.svg";
+import drill from "@/assets/4.svg";
+import milling from "@/assets/5.svg";
+import grinder from "@/assets/6.svg";
+import lathe from "@/assets/7.svg";
+import radial from "@/assets/8.svg";
+import utility from "@/assets/9.svg";
 
 export type Machine = {
   slug: string;
@@ -188,7 +190,7 @@ export const categories: Category[] = [
     slug: "znc-edm",
     name: "ZNC EDM",
     short: "Reliable ZNC Spark EDM machines with intelligent file storage and repeat cutting.",
-    image: sinker,
+    image: znc,
     machines: [
       {
         slug: "znc-spark-edm",
@@ -203,7 +205,7 @@ export const categories: Category[] = [
           "Ergonomic operator panel",
           "Rigid welded frame",
         ],
-        image: sinker,
+        image: znc,
         specs: editableSpecs,
       },
     ],
@@ -384,7 +386,7 @@ export const categories: Category[] = [
     slug: "utility",
     name: "Utility Machines",
     short: "Band saws and power presses to round out your tool-room.",
-    image: milling,
+    image: utility,
     machines: [
       {
         slug: "band-saw",
@@ -393,7 +395,7 @@ export const categories: Category[] = [
         description: "Metal cutting band saw for tool room and job-shop use.",
         applications: ["Material Prep", "Job Shops"],
         highlights: ["Precision guides", "Coolant system", "Variable speed"],
-        image: milling,
+        image: utility,
         specs: editableSpecs,
       },
       {
@@ -403,7 +405,7 @@ export const categories: Category[] = [
         description: "Mechanical power press for stamping, blanking and forming.",
         applications: ["Sheet Metal", "Production Stamping"],
         highlights: ["Rigid C-frame", "Precision flywheel", "Safety clutch"],
-        image: milling,
+        image: utility,
         specs: editableSpecs,
       },
     ],

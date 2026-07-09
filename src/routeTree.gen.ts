@@ -11,11 +11,15 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServiceRouteImport } from './routes/service'
+import { Route as NewsRouteImport } from './routes/news'
 import { Route as IndustriesRouteImport } from './routes/industries'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CareersRouteImport } from './routes/careers'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ProductsCategorySlugIndexRouteImport } from './routes/products.$categorySlug.index'
 import { Route as ProductsCategorySlugMachineSlugRouteImport } from './routes/products.$categorySlug.$machineSlug'
 
@@ -29,6 +33,11 @@ const ServiceRoute = ServiceRouteImport.update({
   path: '/service',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndustriesRoute = IndustriesRouteImport.update({
   id: '/industries',
   path: '/industries',
@@ -37,6 +46,11 @@ const IndustriesRoute = IndustriesRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareersRoute = CareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -52,6 +66,16 @@ const IndexRoute = IndexRouteImport.update({
 const ProductsIndexRoute = ProductsIndexRouteImport.update({
   id: '/products/',
   path: '/products/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductsCategorySlugIndexRoute =
@@ -70,10 +94,14 @@ const ProductsCategorySlugMachineSlugRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
   '/industries': typeof IndustriesRoute
+  '/news': typeof NewsRoute
   '/service': typeof ServiceRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog/': typeof BlogIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/products/$categorySlug/$machineSlug': typeof ProductsCategorySlugMachineSlugRoute
   '/products/$categorySlug/': typeof ProductsCategorySlugIndexRoute
@@ -81,10 +109,14 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
   '/industries': typeof IndustriesRoute
+  '/news': typeof NewsRoute
   '/service': typeof ServiceRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog': typeof BlogIndexRoute
   '/products': typeof ProductsIndexRoute
   '/products/$categorySlug/$machineSlug': typeof ProductsCategorySlugMachineSlugRoute
   '/products/$categorySlug': typeof ProductsCategorySlugIndexRoute
@@ -93,10 +125,14 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
   '/industries': typeof IndustriesRoute
+  '/news': typeof NewsRoute
   '/service': typeof ServiceRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog/': typeof BlogIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/products/$categorySlug/$machineSlug': typeof ProductsCategorySlugMachineSlugRoute
   '/products/$categorySlug/': typeof ProductsCategorySlugIndexRoute
@@ -106,10 +142,14 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/careers'
     | '/contact'
     | '/industries'
+    | '/news'
     | '/service'
     | '/sitemap.xml'
+    | '/blog/$slug'
+    | '/blog/'
     | '/products/'
     | '/products/$categorySlug/$machineSlug'
     | '/products/$categorySlug/'
@@ -117,10 +157,14 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/careers'
     | '/contact'
     | '/industries'
+    | '/news'
     | '/service'
     | '/sitemap.xml'
+    | '/blog/$slug'
+    | '/blog'
     | '/products'
     | '/products/$categorySlug/$machineSlug'
     | '/products/$categorySlug'
@@ -128,10 +172,14 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/careers'
     | '/contact'
     | '/industries'
+    | '/news'
     | '/service'
     | '/sitemap.xml'
+    | '/blog/$slug'
+    | '/blog/'
     | '/products/'
     | '/products/$categorySlug/$machineSlug'
     | '/products/$categorySlug/'
@@ -140,10 +188,14 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  CareersRoute: typeof CareersRoute
   ContactRoute: typeof ContactRoute
   IndustriesRoute: typeof IndustriesRoute
+  NewsRoute: typeof NewsRoute
   ServiceRoute: typeof ServiceRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
   ProductsCategorySlugMachineSlugRoute: typeof ProductsCategorySlugMachineSlugRoute
   ProductsCategorySlugIndexRoute: typeof ProductsCategorySlugIndexRoute
@@ -165,6 +217,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/news': {
+      id: '/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/industries': {
       id: '/industries'
       path: '/industries'
@@ -177,6 +236,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -200,6 +266,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products/$categorySlug/': {
       id: '/products/$categorySlug/'
       path: '/products/$categorySlug'
@@ -220,10 +300,14 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  CareersRoute: CareersRoute,
   ContactRoute: ContactRoute,
   IndustriesRoute: IndustriesRoute,
+  NewsRoute: NewsRoute,
   ServiceRoute: ServiceRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  BlogSlugRoute: BlogSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
   ProductsCategorySlugMachineSlugRoute: ProductsCategorySlugMachineSlugRoute,
   ProductsCategorySlugIndexRoute: ProductsCategorySlugIndexRoute,
@@ -231,3 +315,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

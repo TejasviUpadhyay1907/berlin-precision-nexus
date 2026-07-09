@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { categories } from "@/data/products";
+import { CommandSearch } from "@/components/site/CommandSearch";
 
 const navItems = [
   { label: "Home", to: "/" },
@@ -10,6 +11,7 @@ const navItems = [
   { label: "Industries", to: "/industries" },
   { label: "Services", to: "/service" },
   { label: "Contact", to: "/contact" },
+  { label: "Careers", to: "/careers" },
 ];
 
 export function Nav({ overHero = false }: { overHero?: boolean }) {
@@ -87,7 +89,8 @@ export function Nav({ overHero = false }: { overHero?: boolean }) {
           ))}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-4">
+          <CommandSearch />
           <Link
             to="/contact"
             className="inline-flex items-center gap-2 bg-berlin-red text-white px-5 py-2.5 text-sm font-semibold tracking-wide hover:bg-berlin-red-dark transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-10px_rgba(200,16,46,0.6)]"

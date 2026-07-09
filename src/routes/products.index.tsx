@@ -5,6 +5,7 @@ import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { PageHero } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
+import { MachineComparison } from "@/components/site/MachineComparison";
 import { categories } from "@/data/products";
 
 export const Route = createFileRoute("/products/")({
@@ -62,14 +63,16 @@ function ProductsIndex() {
                     EXPLORE CATEGORY <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
-                <div className={`aspect-[5/4] bg-muted overflow-hidden ${i % 2 ? "lg:order-1" : ""}`}>
-                  <img src={c.image} alt={c.name} loading="lazy" className="w-full h-full object-cover hover:scale-105 transition-transform duration-[900ms]" />
+                <div className={`aspect-[5/4] bg-white overflow-hidden p-6 flex items-center justify-center ${i % 2 ? "lg:order-1" : ""}`}>
+                  <img src={c.image} alt={c.name} loading="lazy" className="max-w-full max-h-full object-contain hover:scale-105 transition-transform duration-[900ms]" />
                 </div>
               </div>
             </Reveal>
           ))}
         </div>
       </section>
+
+      <MachineComparison />
 
       <Footer />
     </div>
