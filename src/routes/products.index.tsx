@@ -5,7 +5,6 @@ import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { PageHero } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
-import { MachineComparison } from "@/components/site/MachineComparison";
 import { categories } from "@/data/products";
 
 export const Route = createFileRoute("/products/")({
@@ -71,8 +70,6 @@ function ProductsIndex() {
           ))}
         </div>
       </section>
-
-      <MachineComparison />
 
       <Footer />
     </div>

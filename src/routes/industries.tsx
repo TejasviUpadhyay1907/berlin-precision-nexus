@@ -44,16 +44,16 @@ const details: Record<string, string> = {
 };
 
 const images: Record<string, string> = {
-  Automotive: milling,
+  Automotive: factory,
   Aerospace: hero,
   Defense: radial,
   Medical: grinder,
   Electronics: drill,
-  "Die & Mold": factory,
+  "Die & Mold": sinker,
   "Precision Engineering": wirecut,
   "Tool Room": lathe,
   Energy: sparks,
-  "Research Institutes": sinker,
+  "Research Institutes": milling,
   Manufacturing: factory,
 };
 
