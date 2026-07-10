@@ -20,9 +20,7 @@ function ComparePage() {
   return (
     <div className="min-h-screen bg-white">
       <Nav />
-      <div className="pt-16 md:pt-20">
-        <MachineComparison />
-      </div>
+      <MachineComparison />
       <Footer />
     </div>
   );
