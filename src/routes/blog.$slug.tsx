@@ -1,3 +1,4 @@
+import type React from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Calendar, Clock, User, ArrowLeft, ArrowRight, Tag } from "lucide-react";
 
