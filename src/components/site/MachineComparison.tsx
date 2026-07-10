@@ -166,37 +166,110 @@ function SelectionView({
       </div>
 
       {/* Machine grid */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {filtered.map((machine, i) => {
           const sel = isSelected(machine);
           return (
             <Reveal key={`${machine.category.slug}-${machine.slug}`} delay={Math.min(i * 0.03, 0.3)}>
               <button
                 onClick={() => toggleMachine(machine)}
-                className={`w-full text-left p-5 border transition-all relative group h-full ${
+                className={`w-full text-left border transition-all duration-500 relative group h-full overflow-hidden ${
                   sel
-                    ? "border-berlin-red bg-berlin-red/5 shadow-[0_10px_30px_-15px_rgba(200,16,46,0.4)]"
-                    : "border-border bg-white hover:border-berlin-red hover:-translate-y-1 hover:shadow-[0_15px_40px_-20px_rgba(0,0,0,0.2)]"
+                    ? "border-berlin-red bg-graphite text-white shadow-[0_20px_50px_-20px_rgba(200,16,46,0.55)] -translate-y-1"
+                    : "border-border bg-white hover:border-berlin-red hover:-translate-y-1 hover:shadow-[0_20px_45px_-20px_rgba(0,0,0,0.25)]"
                 }`}
               >
-                {sel && (
-                  <div className="absolute top-3 right-3 h-6 w-6 bg-berlin-red grid place-items-center animate-scale-in">
-                    <Check className="h-3.5 w-3.5 text-white" />
+                {/* Red sweep on hover */}
+                <span
+                  aria-hidden
+                  className={`pointer-events-none absolute inset-0 bg-gradient-to-br from-berlin-red via-berlin-red-dark to-graphite transition-opacity duration-500 ${
+                    sel ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                  }`}
+                />
+                {/* Grid pattern overlay when active/hover */}
+                <span
+                  aria-hidden
+                  className={`pointer-events-none absolute inset-0 grid-lines transition-opacity duration-500 ${
+                    sel ? "opacity-30" : "opacity-0 group-hover:opacity-25"
+                  }`}
+                />
+                {/* Corner accent line */}
+                <span
+                  aria-hidden
+                  className={`pointer-events-none absolute top-0 left-0 h-[2px] bg-berlin-red transition-all duration-500 ${
+                    sel ? "w-full" : "w-8 group-hover:w-full"
+                  }`}
+                />
+
+                {/* Selection check */}
+                <div
+                  className={`absolute top-3 right-3 h-7 w-7 grid place-items-center border transition-all duration-300 ${
+                    sel
+                      ? "bg-berlin-red border-berlin-red scale-100"
+                      : "bg-transparent border-border scale-90 group-hover:border-white/60 group-hover:scale-100"
+                  }`}
+                >
+                  <Check
+                    className={`h-3.5 w-3.5 transition-all duration-300 ${
+                      sel ? "text-white opacity-100" : "text-transparent opacity-0 group-hover:text-white/70 group-hover:opacity-100"
+                    }`}
+                  />
+                </div>
+
+                <div className="relative p-5 pr-14">
+                  <div
+                    className={`text-[10px] tracking-[0.25em] font-semibold transition-colors duration-500 ${
+                      sel ? "text-white/70" : "text-berlin-red group-hover:text-white/80"
+                    }`}
+                  >
+                    {String(i + 1).padStart(2, "0")} · {machine.category.name.toUpperCase()}
                   </div>
-                )}
-                <div className="text-[10px] tracking-[0.2em] text-berlin-red font-semibold">
-                  {machine.category.name.toUpperCase()}
-                </div>
-                <div className="mt-2 font-display font-bold text-graphite text-base group-hover:text-berlin-red transition-colors">
-                  {machine.name}
-                </div>
-                <div className="mt-1 text-xs text-muted-foreground line-clamp-2">{machine.tagline}</div>
-                <div className="mt-3 flex flex-wrap gap-1">
-                  {machine.applications.slice(0, 3).map((app) => (
-                    <span key={app} className="text-[10px] px-2 py-0.5 border border-border text-muted-foreground bg-muted/50">
-                      {app}
-                    </span>
-                  ))}
+                  <div
+                    className={`mt-3 font-display font-bold text-lg leading-tight transition-colors duration-500 ${
+                      sel ? "text-white" : "text-graphite group-hover:text-white"
+                    }`}
+                  >
+                    {machine.name}
+                  </div>
+                  <div
+                    className={`mt-2 text-xs leading-relaxed line-clamp-2 transition-colors duration-500 ${
+                      sel ? "text-white/70" : "text-muted-foreground group-hover:text-white/80"
+                    }`}
+                  >
+                    {machine.tagline}
+                  </div>
+
+                  {/* divider */}
+                  <div
+                    className={`mt-4 h-px transition-colors duration-500 ${
+                      sel ? "bg-white/15" : "bg-border group-hover:bg-white/20"
+                    }`}
+                  />
+
+                  <div className="mt-3 flex flex-wrap gap-1">
+                    {machine.applications.slice(0, 3).map((app) => (
+                      <span
+                        key={app}
+                        className={`text-[10px] px-2 py-0.5 border transition-colors duration-500 ${
+                          sel
+                            ? "border-white/25 text-white/80 bg-white/5"
+                            : "border-border text-muted-foreground bg-muted/50 group-hover:border-white/25 group-hover:text-white/85 group-hover:bg-white/10"
+                        }`}
+                      >
+                        {app}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Bottom action hint */}
+                  <div
+                    className={`mt-4 flex items-center gap-1 text-[10px] font-semibold tracking-[0.2em] transition-all duration-500 ${
+                      sel ? "text-white" : "text-muted-foreground group-hover:text-white"
+                    }`}
+                  >
+                    {sel ? "SELECTED" : "TAP TO COMPARE"}
+                    <ArrowRight className={`h-3 w-3 transition-transform duration-500 ${sel ? "translate-x-1" : "group-hover:translate-x-1"}`} />
+                  </div>
                 </div>
               </button>
             </Reveal>
