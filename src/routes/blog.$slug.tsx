@@ -149,7 +149,7 @@ function BlogPostPage() {
 // Simple markdown-to-JSX renderer for blog content
 function renderMarkdown(content: string) {
   const lines = content.split("\n");
-  const elements: JSX.Element[] = [];
+  const elements: React.ReactElement[] = [];
   let i = 0;
   let key = 0;
 
