@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, animate, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Zap, Target, Shield, Cpu, Leaf, Award, Wrench, Phone } from "lucide-react";
+
 
 import heroImg from "@/assets/hero-machine.jpg";
 import sparksImg from "@/assets/edm-sparks.jpg";
