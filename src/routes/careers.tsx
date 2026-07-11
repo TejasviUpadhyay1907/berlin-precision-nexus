@@ -156,6 +156,19 @@ function CareersPage() {
     e.preventDefault();
     setFormSending(true);
     const form = e.currentTarget;
+    
+    const fileInput = form.elements.namedItem("resume") as HTMLInputElement;
+    let resumeBase64 = "";
+    let resumeFileName = "";
+    let resumeMimeType = "";
+    
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      resumeFileName = file.name;
+      resumeMimeType = file.type;
+      resumeBase64 = await fileToBase64(file);
+    }
+
     const data = {
       formType: "career",
       fullname: (form.elements.namedItem("fullname") as HTMLInputElement).value,
@@ -163,6 +176,9 @@ function CareersPage() {
       phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
       position: (form.elements.namedItem("position") as HTMLSelectElement).value,
       coverNote: (form.elements.namedItem("coverNote") as HTMLTextAreaElement).value,
+      resumeBase64,
+      resumeFileName,
+      resumeMimeType,
     };
     try {
       await fetch("https://script.google.com/macros/s/AKfycbxdR6iYM9Cxpfj8M6h3CAwCkKgIPGAtrJVildxu_o4zyXXR2H3q4Gdpf6Hn_H8XDmRD/exec", {
@@ -353,6 +369,7 @@ function CareersPage() {
                     <div className="md:col-span-2">
                       <label className="block text-[10px] tracking-[0.25em] font-semibold text-white/60">RESUME (PDF)</label>
                       <input
+                        name="resume"
                         type="file"
                         accept=".pdf,.doc,.docx"
                         className="mt-2 w-full text-sm text-white/70 file:mr-4 file:py-2 file:px-4 file:border file:border-white/15 file:bg-white/[0.04] file:text-white file:text-sm file:font-semibold hover:file:border-berlin-red file:cursor-pointer"
@@ -376,6 +393,20 @@ function CareersPage() {
       <Footer />
     </div>
   );
+}
+
+function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      // Remove the data:...;base64, prefix
+      const base64 = result.split(",")[1];
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
 
 function AppField({ name, label, type = "text" }: { name: string; label: string; type?: string }) {
