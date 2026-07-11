@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, animate, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Zap, Target, Shield, Cpu, Leaf, Award, Wrench, Phone } from "lucide-react";
+
 
 import heroImg from "@/assets/hero-machine.jpg";
 import sparksImg from "@/assets/edm-sparks.jpg";
@@ -57,57 +58,158 @@ function Home() {
   );
 }
 
+function AnimatedNumber({ to, duration = 1.1, delay = 0 }: { to: number; duration?: number; delay?: number }) {
+  const [val, setVal] = useState(0);
+  const reduce = useReducedMotion();
+  useEffect(() => {
+    if (reduce) { setVal(to); return; }
+    const controls = animate(0, to, {
+      duration,
+      delay,
+      ease: [0.2, 0.7, 0.2, 1],
+      onUpdate: (v) => setVal(Math.round(v)),
+    });
+    return () => controls.stop();
+  }, [to, duration, delay, reduce]);
+  return <>{val}</>;
+}
+
+function Sparks() {
+  const reduce = useReducedMotion();
+  if (reduce) return null;
+  const sparks = Array.from({ length: 7 });
+  return (
+    <div className="pointer-events-none absolute" style={{ left: "42%", top: "62%" }} aria-hidden>
+      {sparks.map((_, i) => {
+        const angle = -90 + (Math.random() * 60 - 30);
+        const dist = 40 + Math.random() * 60;
+        const rad = (angle * Math.PI) / 180;
+        const x = Math.cos(rad) * dist;
+        const y = Math.sin(rad) * dist;
+        return (
+          <motion.span
+            key={i}
+            className="absolute block h-[2px] w-[2px] rounded-full bg-[#ffb168]"
+            style={{ boxShadow: "0 0 4px 1px rgba(255,150,60,0.7)" }}
+            initial={{ x: 0, y: 0, opacity: 0 }}
+            animate={{ x: [0, x], y: [0, y], opacity: [0, 1, 0] }}
+            transition={{
+              duration: 0.9 + Math.random() * 0.6,
+              delay: 1 + Math.random() * 2.5,
+              repeat: Infinity,
+              repeatDelay: 1.2 + Math.random() * 2,
+              ease: "easeOut",
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
 /* ---------------- HERO ---------------- */
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const reduce = useReducedMotion();
 
   return (
     <section ref={ref} className="relative min-h-screen bg-graphite text-white overflow-hidden">
+      {/* Machine image — parallax + subtle float */}
       <motion.div style={{ y }} className="absolute inset-0">
-        <img
-          src={heroImg}
-          alt="Berlin CNC Wire Cut EDM machine"
-          className="w-full h-full object-cover opacity-70"
-          width={1920}
-          height={1200}
-        />
+        <motion.div
+          className="absolute inset-0"
+          animate={reduce ? undefined : { y: [0, -3, 0, 2, 0], x: [0, 1, 0, -1, 0] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <img
+            src={heroImg}
+            alt="Berlin CNC Wire Cut EDM machine"
+            className="w-full h-full object-cover opacity-70"
+            width={1920}
+            height={1200}
+          />
+        </motion.div>
         <div className="absolute inset-0 bg-gradient-to-r from-graphite via-graphite/70 to-graphite/10" />
         <div className="absolute inset-0 bg-gradient-to-t from-graphite via-transparent to-graphite/40" />
+        {/* Vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.55) 100%)",
+          }}
+        />
       </motion.div>
 
-      <div className="absolute inset-0 grid-lines opacity-40" />
+      {/* Subtle drifting engineering grid */}
+      <motion.div
+        className="absolute inset-0 grid-lines opacity-40"
+        animate={reduce ? undefined : { backgroundPositionX: ["0px", "56px"], backgroundPositionY: ["0px", "56px"] }}
+        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+      />
       <div className="absolute -left-40 top-1/3 h-[500px] w-[500px] bg-berlin-red/20 blur-[160px] rounded-full" />
+
+      {/* Sparks near cutting area */}
+      <Sparks />
 
       <motion.div style={{ opacity }} className="relative container-x pt-32 md:pt-40 pb-16">
         <div className="max-w-3xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5, delay: 0.15, ease: [0.2, 0.7, 0.2, 1] }}
             className="inline-flex items-center gap-3 text-[11px] font-semibold tracking-[0.3em] text-berlin-red"
           >
-            <span className="h-px w-10 bg-berlin-red" />
+            <motion.span
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              style={{ transformOrigin: "left" }}
+              className="h-px w-10 bg-berlin-red inline-block"
+            />
             SINCE 2005 · PUNE · INDIA
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.15 }}
-            className="mt-6 font-display font-black text-5xl md:text-7xl lg:text-[110px] leading-[0.88] tracking-tight"
-          >
-            <span className="text-shine block">ENGINEERED</span>
-            <span className="text-white/80 block">TO CUT</span>
-            <span className="text-berlin-red block italic">BEYOND LIMITS.</span>
-          </motion.h1>
+          <h1 className="mt-6 font-display font-black text-5xl md:text-7xl lg:text-[110px] leading-[0.88] tracking-tight overflow-hidden">
+            <span className="block overflow-hidden">
+              <motion.span
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.7, delay: 0.25, ease: [0.2, 0.7, 0.2, 1] }}
+                className="text-shine block"
+              >
+                ENGINEERED
+              </motion.span>
+            </span>
+            <span className="block overflow-hidden">
+              <motion.span
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.7, delay: 0.35, ease: [0.2, 0.7, 0.2, 1] }}
+                className="text-white/80 block"
+              >
+                TO CUT
+              </motion.span>
+            </span>
+            <span className="block overflow-hidden">
+              <motion.span
+                initial={{ y: "100%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.75, delay: 0.55, ease: [0.2, 0.7, 0.2, 1] }}
+                className="text-berlin-red block italic"
+              >
+                BEYOND LIMITS.
+              </motion.span>
+            </span>
+          </h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
             className="mt-8 max-w-xl text-lg md:text-xl text-white/70 leading-relaxed"
           >
             Precision CNC & EDM machinery for India&apos;s most demanding tool rooms.
@@ -115,56 +217,69 @@ function Hero() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.55 }}
+            initial="hidden"
+            animate="show"
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.08, delayChildren: 0.8 } },
+            }}
             className="mt-10 flex flex-wrap gap-4"
           >
-            <Link
-              to="/products"
-              className="group inline-flex items-center gap-3 bg-berlin-red text-white px-7 py-4 text-sm font-bold tracking-[0.15em] hover:bg-berlin-red-dark transition-all hover:-translate-y-0.5 hover:shadow-[0_20px_60px_-10px_rgba(200,16,46,0.6)]"
-            >
-              EXPLORE MACHINES
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              to="/contact"
-              className="group inline-flex items-center gap-3 border border-white/25 text-white px-7 py-4 text-sm font-bold tracking-[0.15em] hover:bg-white hover:text-graphite transition-all"
-            >
-              REQUEST QUOTE
-            </Link>
+            <motion.div variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}>
+              <Link
+                to="/products"
+                className="group inline-flex items-center gap-3 bg-berlin-red text-white px-7 py-4 text-sm font-bold tracking-[0.15em] hover:bg-berlin-red-dark transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_20px_60px_-10px_rgba(200,16,46,0.6)]"
+              >
+                EXPLORE MACHINES
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+              </Link>
+            </motion.div>
+            <motion.div variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}>
+              <Link
+                to="/contact"
+                className="group inline-flex items-center gap-3 border border-white/25 text-white px-7 py-4 text-sm font-bold tracking-[0.15em] hover:bg-white hover:text-graphite transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02]"
+              >
+                REQUEST QUOTE
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
 
         {/* stat card */}
         <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.6 }}
+          initial={{ opacity: 0, x: 30, y: 10 }}
+          animate={{ opacity: 1, x: 0, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.95, ease: [0.2, 0.7, 0.2, 1] }}
           className="hidden lg:block absolute right-8 bottom-24 border border-white/15 bg-white/5 backdrop-blur-sm p-6 max-w-[280px]"
         >
           <div className="text-[10px] tracking-[0.25em] text-berlin-red font-semibold">MAX CUTTING SPEED</div>
-          <div className="mt-2 font-display font-black text-6xl leading-none text-white">
-            300
+          <div className="mt-2 font-display font-black text-6xl leading-none text-white tabular-nums">
+            <AnimatedNumber to={300} duration={1.1} delay={1.1} />
             <span className="text-xl align-top ml-1 text-white/60">mm³/min</span>
           </div>
           <div className="mt-3 text-xs text-white/60">2× faster than anything else in class.</div>
         </motion.div>
       </motion.div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 text-[10px] tracking-[0.3em]">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 1.3 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 text-[10px] tracking-[0.3em]"
+      >
         <span>SCROLL</span>
-        <div className="w-px h-10 bg-white/20 relative overflow-hidden">
+        <div className="w-px h-12 bg-white/15 relative overflow-hidden">
           <motion.div
-            className="absolute inset-x-0 top-0 h-4 bg-berlin-red"
-            animate={{ y: [-16, 40] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute inset-x-0 top-0 h-5 bg-gradient-to-b from-transparent via-berlin-red to-transparent"
+            animate={{ y: [-20, 48] }}
+            transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
+
 
 /* ---------------- TRUST BAR ---------------- */
 function TrustBar() {
