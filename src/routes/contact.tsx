@@ -22,6 +22,34 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSending(true);
+    const form = e.currentTarget;
+    const data = {
+      formType: "enquiry",
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      company: (form.elements.namedItem("company") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
+      interest: (form.elements.namedItem("interest") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
+    try {
+      await fetch("https://script.google.com/macros/s/AKfycbxdR6iYM9Cxpfj8M6h3CAwCkKgIPGAtrJVildxu_o4zyXXR2H3q4Gdpf6Hn_H8XDmRD/exec", {
+        method: "POST",
+        body: JSON.stringify(data),
+        mode: "no-cors",
+      });
+      setSent(true);
+    } catch {
+      setSent(true);
+    } finally {
+      setSending(false);
+    }
+  };
   return (
     <div className="min-h-screen bg-white">
       <Nav />
@@ -64,7 +92,7 @@ function ContactPage() {
 
           <Reveal delay={0.1}>
             <form
-              onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+              onSubmit={handleSubmit}
               className="bg-graphite text-white p-8 md:p-12 relative overflow-hidden"
             >
               <div className="absolute inset-0 grid-lines opacity-30 pointer-events-none" />
@@ -88,10 +116,10 @@ function ContactPage() {
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-[10px] tracking-[0.25em] font-semibold text-white/60">MESSAGE</label>
-                      <textarea rows={4} className="mt-2 w-full bg-white/[0.04] border border-white/15 focus:border-berlin-red outline-none px-4 py-3 text-sm text-white placeholder:text-white/30" placeholder="Tell us about your application, parts, timeline…" />
+                      <textarea name="message" rows={4} className="mt-2 w-full bg-white/[0.04] border border-white/15 focus:border-berlin-red outline-none px-4 py-3 text-sm text-white placeholder:text-white/30" placeholder="Tell us about your application, parts, timeline…" />
                     </div>
-                    <button type="submit" className="md:col-span-2 mt-2 bg-berlin-red hover:bg-berlin-red-dark text-white py-4 text-sm font-bold tracking-[0.2em] transition-colors">
-                      SEND ENQUIRY
+                    <button type="submit" disabled={sending} className="md:col-span-2 mt-2 bg-berlin-red hover:bg-berlin-red-dark text-white py-4 text-sm font-bold tracking-[0.2em] transition-colors disabled:opacity-60">
+                      {sending ? "SENDING..." : "SEND ENQUIRY"}
                     </button>
                   </div>
                 )}
