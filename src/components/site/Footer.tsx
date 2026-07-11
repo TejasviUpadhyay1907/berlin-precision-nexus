@@ -36,7 +36,7 @@ export function Footer() {
         <div>
           <h4 className="text-white text-sm font-semibold tracking-[0.2em]">PRODUCTS</h4>
           <ul className="mt-5 space-y-3 text-sm">
-            {categories.slice(0, 6).map((c) => (
+            {categories.slice(0, 4).map((c) => (
               <li key={c.slug}>
                 <Link
                   to="/products/$categorySlug"

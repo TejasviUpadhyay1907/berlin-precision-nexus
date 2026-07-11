@@ -26,7 +26,7 @@ function ProductsIndex() {
       <PageHero
         eyebrow="PRODUCT PORTFOLIO"
         title={<>The complete <span className="text-berlin-red italic">tool room.</span></>}
-        subtitle="Nine product families. Dozens of models. One engineering standard."
+        subtitle="Four product families. Dozens of models. One engineering standard."
       />
 
       <section className="py-24">

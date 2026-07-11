@@ -14,7 +14,6 @@ import { Route as ServiceRouteImport } from './routes/service'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as IndustriesRouteImport } from './routes/industries'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as CompareRouteImport } from './routes/compare'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -47,11 +46,6 @@ const IndustriesRoute = IndustriesRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CompareRoute = CompareRouteImport.update({
-  id: '/compare',
-  path: '/compare',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareersRoute = CareersRouteImport.update({
@@ -101,7 +95,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
-  '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/industries': typeof IndustriesRoute
   '/news': typeof NewsRoute
@@ -117,7 +110,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
-  '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/industries': typeof IndustriesRoute
   '/news': typeof NewsRoute
@@ -134,7 +126,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
-  '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/industries': typeof IndustriesRoute
   '/news': typeof NewsRoute
@@ -152,7 +143,6 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/careers'
-    | '/compare'
     | '/contact'
     | '/industries'
     | '/news'
@@ -168,7 +158,6 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/careers'
-    | '/compare'
     | '/contact'
     | '/industries'
     | '/news'
@@ -184,7 +173,6 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/careers'
-    | '/compare'
     | '/contact'
     | '/industries'
     | '/news'
@@ -201,7 +189,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   CareersRoute: typeof CareersRoute
-  CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
   IndustriesRoute: typeof IndustriesRoute
   NewsRoute: typeof NewsRoute
@@ -249,13 +236,6 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/compare': {
-      id: '/compare'
-      path: '/compare'
-      fullPath: '/compare'
-      preLoaderRoute: typeof CompareRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -321,7 +301,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   CareersRoute: CareersRoute,
-  CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
   IndustriesRoute: IndustriesRoute,
   NewsRoute: NewsRoute,
@@ -336,3 +315,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

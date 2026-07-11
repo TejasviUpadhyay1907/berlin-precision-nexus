@@ -238,11 +238,11 @@ function ProductCategories() {
                 <span className="text-berlin-red italic">tool room</span> under one roof.
               </>
             }
-            subtitle="From wire-cut EDM to radial drills — a single engineering house for every stage of your precision workflow."
+            subtitle="CNC Wire Cut EDM, Sinker EDM, ZNC EDM and EDM Drill — a single engineering house for every stage of your precision workflow."
           />
         </Reveal>
 
-        <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-2 gap-6">
           {categories.map((c, i) => (
             <Reveal key={c.slug} delay={i * 0.06}>
               <Link

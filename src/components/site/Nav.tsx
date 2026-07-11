@@ -12,7 +12,6 @@ const navItems = [
   { label: "Services", to: "/service" },
   { label: "Contact", to: "/contact" },
   { label: "Careers", to: "/careers" },
-  { label: "Compare", to: "/compare" },
 ];
 
 export function Nav({ overHero = false }: { overHero?: boolean }) {

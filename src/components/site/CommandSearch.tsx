@@ -30,7 +30,6 @@ const searchIndex: SearchItem[] = [
   { label: "Careers", href: "/careers", category: "Pages" },
   { label: "News & Updates", href: "/news", category: "Pages" },
   { label: "Blog & Insights", href: "/blog", category: "Pages" },
-  { label: "Compare Machines", href: "/compare", category: "Pages" },
 
   // Product Categories
   ...categories.map((c) => ({
