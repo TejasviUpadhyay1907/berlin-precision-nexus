@@ -42,7 +42,7 @@ function ContactPage() {
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     };
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbxdR6iYM9Cxpfj8M6h3CAwCkKgIPGAtrJVildxu_o4zyXXR2H3q4Gdpf6Hn_H8XDmRD/exec", {
+      await fetch("https://script.google.com/macros/s/AKfycbxCH8KkEhgW_NSWKSHfUcmS84hF7vc3UgFQ0YtLfId7N1vg7csUYpQhvRcA1WMLvYkZ/exec", {
         method: "POST",
         body: JSON.stringify(data),
         mode: "no-cors",
