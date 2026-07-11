@@ -1,11 +1,12 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowRight, Check, Download } from "lucide-react";
+import { ArrowRight, Check, Download, Phone, Mail, MessageCircle } from "lucide-react";
 
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
 import { SectionEyebrow } from "@/components/site/Section";
 import { categories, findMachine } from "@/data/products";
+import { site } from "@/data/site";
 
 export const Route = createFileRoute("/products/$categorySlug/$machineSlug")({
   loader: ({ params }) => {
@@ -67,7 +68,11 @@ function MachinePage() {
             <p className="mt-6 text-xl text-white/70 italic">{machine.tagline}</p>
             <p className="mt-4 text-white/60 max-w-xl leading-relaxed">{machine.description}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/contact" className="inline-flex items-center gap-2 bg-berlin-red text-white px-6 py-3.5 text-sm font-bold tracking-[0.15em] hover:bg-berlin-red-dark transition-colors">
+              <Link
+                to="/contact"
+                search={{ machine: `${machine.name} (${category.name})` } as any}
+                className="inline-flex items-center gap-2 bg-berlin-red text-white px-6 py-3.5 text-sm font-bold tracking-[0.15em] hover:bg-berlin-red-dark transition-colors"
+              >
                 REQUEST QUOTE <ArrowRight className="h-4 w-4" />
               </Link>
               <button className="inline-flex items-center gap-2 border border-white/25 text-white px-6 py-3.5 text-sm font-bold tracking-[0.15em] hover:bg-white hover:text-graphite transition-all">
@@ -77,6 +82,39 @@ function MachinePage() {
           </div>
           <div className="aspect-[5/4] bg-white/[0.03] border border-white/10 overflow-hidden">
             <img src={machine.image} alt={machine.name} className="w-full h-full object-cover" />
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Contact Bar */}
+      <section className="bg-graphite-2 border-b border-white/10">
+        <div className="container-x py-5">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="text-sm text-white/70">
+              Interested in <strong className="text-white">{machine.name}</strong>? Reach out directly:
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href={`https://wa.me/${site.phone.replace(/\D/g, "")}?text=${encodeURIComponent(`Hi, I'm interested in the ${machine.name} (${category.name}). Please share pricing and availability.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-[#25D366] text-white px-4 py-2.5 text-xs font-bold tracking-wider hover:bg-[#1fb855] transition-colors"
+              >
+                <MessageCircle className="h-3.5 w-3.5" /> WHATSAPP
+              </a>
+              <a
+                href={`tel:${site.phone.replace(/\s/g, "")}`}
+                className="inline-flex items-center gap-2 bg-white/10 text-white px-4 py-2.5 text-xs font-bold tracking-wider border border-white/20 hover:bg-white hover:text-graphite transition-all"
+              >
+                <Phone className="h-3.5 w-3.5" /> CALL NOW
+              </a>
+              <a
+                href={`mailto:${site.email}?subject=${encodeURIComponent(`Enquiry: ${machine.name} - ${category.name}`)}&body=${encodeURIComponent(`Hi Berlin Machineries,\n\nI am interested in the ${machine.name} from your ${category.name} range.\n\nPlease share detailed specifications, pricing, and delivery timelines.\n\nThank you.`)}`}
+                className="inline-flex items-center gap-2 bg-white/10 text-white px-4 py-2.5 text-xs font-bold tracking-wider border border-white/20 hover:bg-white hover:text-graphite transition-all"
+              >
+                <Mail className="h-3.5 w-3.5" /> EMAIL
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -169,6 +207,35 @@ function MachinePage() {
       )}
 
       <Footer />
+
+      {/* Sticky mobile contact bar */}
+      <div className="fixed bottom-0 inset-x-0 z-40 bg-graphite border-t border-white/10 p-3 flex items-center justify-between gap-2 lg:hidden">
+        <a
+          href={`https://wa.me/${site.phone.replace(/\D/g, "")}?text=${encodeURIComponent(`Hi, I'm interested in the ${machine.name} (${category.name}).`)}`}
+          className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#25D366] text-white py-2.5 text-[11px] font-bold tracking-wider"
+        >
+          <MessageCircle className="h-3.5 w-3.5" /> WhatsApp
+        </a>
+        <a
+          href={`tel:${site.phone.replace(/\s/g, "")}`}
+          className="flex-1 inline-flex items-center justify-center gap-1.5 border border-white/20 text-white py-2.5 text-[11px] font-bold tracking-wider"
+        >
+          <Phone className="h-3.5 w-3.5" /> Call
+        </a>
+        <a
+          href={`mailto:${site.email}?subject=${encodeURIComponent(`Enquiry: ${machine.name}`)}`}
+          className="flex-1 inline-flex items-center justify-center gap-1.5 border border-white/20 text-white py-2.5 text-[11px] font-bold tracking-wider"
+        >
+          <Mail className="h-3.5 w-3.5" /> Email
+        </a>
+        <Link
+          to="/contact"
+          search={{ machine: `${machine.name} (${category.name})` } as any}
+          className="flex-1 inline-flex items-center justify-center gap-1.5 bg-berlin-red text-white py-2.5 text-[11px] font-bold tracking-wider"
+        >
+          Quote
+        </Link>
+      </div>
     </div>
   );
 }

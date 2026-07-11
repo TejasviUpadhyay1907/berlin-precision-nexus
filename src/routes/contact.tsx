@@ -9,6 +9,9 @@ import { Reveal } from "@/components/site/Reveal";
 import { site } from "@/data/site";
 
 export const Route = createFileRoute("/contact")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    machine: (search.machine as string) || "",
+  }),
   head: () => ({
     meta: [
       { title: "Contact — Berlin Machineries Private Limited" },
@@ -21,6 +24,7 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
+  const { machine: machineParam } = Route.useSearch();
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
 
@@ -112,7 +116,7 @@ function ContactPage() {
                     <Field name="email" label="Email" type="email" />
                     <Field name="phone" label="Phone" />
                     <div className="md:col-span-2">
-                      <Field name="interest" label="Machine of interest" />
+                      <Field name="interest" label="Machine of interest" defaultValue={machineParam} />
                     </div>
                     <div className="md:col-span-2">
                       <label className="block text-[10px] tracking-[0.25em] font-semibold text-white/60">MESSAGE</label>
@@ -134,7 +138,7 @@ function ContactPage() {
   );
 }
 
-function Field({ name, label, type = "text" }: { name: string; label: string; type?: string }) {
+function Field({ name, label, type = "text", defaultValue = "" }: { name: string; label: string; type?: string; defaultValue?: string }) {
   return (
     <div>
       <label htmlFor={name} className="block text-[10px] tracking-[0.25em] font-semibold text-white/60">
@@ -145,6 +149,7 @@ function Field({ name, label, type = "text" }: { name: string; label: string; ty
         name={name}
         type={type}
         required
+        defaultValue={defaultValue}
         className="mt-2 w-full bg-white/[0.04] border border-white/15 focus:border-berlin-red outline-none px-4 py-3 text-sm text-white placeholder:text-white/30"
       />
     </div>
