@@ -166,7 +166,12 @@ function CareersPage() {
       const file = fileInput.files[0];
       resumeFileName = file.name;
       resumeMimeType = file.type;
-      resumeBase64 = await fileToBase64(file);
+      try {
+        resumeBase64 = await fileToBase64(file);
+      } catch {
+        // If file encoding fails, continue without it
+        resumeBase64 = "";
+      }
     }
 
     const data = {
@@ -186,12 +191,11 @@ function CareersPage() {
         body: JSON.stringify(data),
         mode: "no-cors",
       });
-      setFormSent(true);
     } catch {
-      setFormSent(true);
-    } finally {
-      setFormSending(false);
+      // no-cors mode may throw but data is still sent
     }
+    setFormSent(true);
+    setFormSending(false);
   };
 
   const filtered = filter === "All" ? openings : openings.filter((j) => j.department === filter);
