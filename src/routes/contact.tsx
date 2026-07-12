@@ -9,9 +9,6 @@ import { Reveal } from "@/components/site/Reveal";
 import { site } from "@/data/site";
 
 export const Route = createFileRoute("/contact")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    machine: (search.machine as string) || "",
-  }),
   head: () => ({
     meta: [
       { title: "Contact — Berlin Machineries Private Limited" },
@@ -24,7 +21,7 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
-  const { machine: machineParam } = Route.useSearch();
+  const machineParam = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("machine") || "" : "";
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
 
