@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useState, useEffect } from "react";
 import { ArrowRight, Check } from "lucide-react";
 
 import { Nav } from "@/components/site/Nav";
@@ -57,8 +58,8 @@ function CategoryPage() {
                   params={{ categorySlug: category.slug, machineSlug: m.slug }}
                   className="group block bg-white border border-border hover:border-berlin-red transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl overflow-hidden"
                 >
-                  <div className="aspect-[4/3] overflow-hidden bg-muted">
-                    <img src={m.image} alt={m.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[900ms]" />
+                  <div className="aspect-[4/3] overflow-hidden bg-white flex items-center justify-center p-6">
+                    <AutoSlideImage images={m.images || [m.image]} name={m.name} />
                   </div>
                   <div className="p-6">
                     <div className="text-[10px] font-semibold tracking-[0.25em] text-berlin-red">
@@ -87,6 +88,39 @@ function CategoryPage() {
       </section>
 
       <Footer />
+    </div>
+  );
+}
+
+function AutoSlideImage({ images, name }: { images: string[]; name: string }) {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrent((c) => (c + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <div className="relative w-full h-full flex items-center justify-center">
+      <img
+        src={images[current]}
+        alt={`${name} - ${current + 1}`}
+        loading="lazy"
+        className="max-w-[85%] max-h-[85%] object-contain group-hover:scale-105 transition-all duration-[900ms]"
+      />
+      {images.length > 1 && (
+        <div className="absolute bottom-1 left-1/2 -translate-x-1/2 flex gap-1.5">
+          {images.map((_, i) => (
+            <div
+              key={i}
+              className={`h-1.5 rounded-full transition-all duration-300 ${i === current ? "w-4 bg-berlin-red" : "w-1.5 bg-gray-300"}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

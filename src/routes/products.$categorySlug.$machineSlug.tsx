@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowRight, Check, Download, Phone, Mail, MessageCircle } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Check, Download, Phone, Mail, MessageCircle, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
@@ -80,9 +81,7 @@ function MachinePage() {
               </button>
             </div>
           </div>
-          <div className="aspect-[5/4] bg-white/[0.03] border border-white/10 overflow-hidden">
-            <img src={machine.image} alt={machine.name} className="w-full h-full object-cover" />
-          </div>
+          <MachineImageSlider images={machine.images || [machine.image]} name={machine.name} />
         </div>
       </section>
 
@@ -235,6 +234,54 @@ function MachinePage() {
         >
           Quote
         </Link>
+      </div>
+    </div>
+  );
+}
+
+function MachineImageSlider({ images, name }: { images: string[]; name: string }) {
+  const [current, setCurrent] = useState(0);
+
+  if (images.length <= 1) {
+    return (
+      <div className="aspect-[5/4] bg-white/[0.03] border border-white/10 overflow-hidden">
+        <img src={images[0]} alt={name} className="w-full h-full object-contain p-4" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="aspect-[5/4] bg-white/[0.03] border border-white/10 overflow-hidden relative group">
+      <img
+        src={images[current]}
+        alt={`${name} - Image ${current + 1}`}
+        className="w-full h-full object-contain p-4 transition-opacity duration-300"
+      />
+      {/* Navigation arrows */}
+      <button
+        onClick={() => setCurrent((c) => (c === 0 ? images.length - 1 : c - 1))}
+        className="absolute left-2 top-1/2 -translate-y-1/2 h-8 w-8 bg-black/50 hover:bg-black/80 text-white grid place-items-center opacity-0 group-hover:opacity-100 transition-opacity"
+        aria-label="Previous image"
+      >
+        <ChevronLeft className="h-4 w-4" />
+      </button>
+      <button
+        onClick={() => setCurrent((c) => (c === images.length - 1 ? 0 : c + 1))}
+        className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 bg-black/50 hover:bg-black/80 text-white grid place-items-center opacity-0 group-hover:opacity-100 transition-opacity"
+        aria-label="Next image"
+      >
+        <ChevronRight className="h-4 w-4" />
+      </button>
+      {/* Dots indicator */}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`h-2 w-2 rounded-full transition-all ${i === current ? "bg-berlin-red w-4" : "bg-white/50"}`}
+            aria-label={`Image ${i + 1}`}
+          />
+        ))}
       </div>
     </div>
   );

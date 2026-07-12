@@ -3,6 +3,18 @@ import sinker from "@/assets/2.svg";
 import znc from "@/assets/3.svg";
 import drill from "@/assets/4.svg";
 
+// CNC Wire Cut EDM machine images
+import sfImg from "@/assets/1_SF SERIES.png";
+import gtImg1 from "@/assets/2_GT SERIES.png";
+import gtImg2 from "@/assets/3_GT SERIES.png";
+import nSeriesImg from "@/assets/4_N SERIES.png";
+import hyperImg1 from "@/assets/5_HYPERCUT SERIES.png";
+import hyperImg2 from "@/assets/6_HYPERCUT SERIES.png";
+import superImg from "@/assets/7_SUPER SERIES.png";
+import fztImg1 from "@/assets/8_FZT SERIES.png";
+import fztImg2 from "@/assets/9_FZT SERIES.png";
+import fdkImg from "@/assets/10_FDK SERIES.png";
+
 export type Machine = {
   slug: string;
   name: string;
@@ -12,6 +24,7 @@ export type Machine = {
   applications: string[];
   highlights: string[];
   image: string;
+  images?: string[];
   specs: { label: string; value: string }[];
 };
 
@@ -63,7 +76,7 @@ export const categories: Category[] = [
           "Taiwan-made linear guides & ball screws",
           "120L fluid tank with multi-stage filtration",
         ],
-        image: wirecut,
+        image: sfImg,
         specs: [
           { label: "Models", value: "SF300 / SF400 / SF500 / SF600" },
           { label: "Table travel X×Y (mm)", value: "320×400 up to 630×800" },
@@ -90,7 +103,8 @@ export const categories: Category[] = [
           "Low maintenance, user-friendly design",
           "Scales from 320mm to 1000mm tables",
         ],
-        image: wirecut,
+        image: gtImg1,
+        images: [gtImg1, gtImg2],
         specs: [
           { label: "Models", value: "ECO320BJ / ECO500BJ / ECO800BJ / ECO1000BJ" },
           { label: "Table travel X×Y (mm)", value: "320×400 up to 1000×1200" },
@@ -117,7 +131,7 @@ export const categories: Category[] = [
           "Self-aligning ceramic guide wheels",
           "Three tiers: Elite, Pro, Pro+",
         ],
-        image: wirecut,
+        image: nSeriesImg,
         specs: [
           { label: "Models", value: "N35 / N45 / N55 / N63" },
           { label: "Table travel X×Y (mm)", value: "450×350 up to 800×630" },
@@ -144,7 +158,8 @@ export const categories: Category[] = [
           "Upgraded wire tension for high feed rates",
           "Energy-efficient, non-stop operation",
         ],
-        image: wirecut,
+        image: hyperImg1,
+        images: [hyperImg1, hyperImg2],
         specs: [
           { label: "Models", value: "HYPER 300 / HYPER 500 / HYPER 600 / HYPER 800" },
           { label: "Table travel X×Y (mm)", value: "300×400 up to 1000×800" },
@@ -169,7 +184,7 @@ export const categories: Category[] = [
           "Heavy load capacity for larger jobs",
           "Durable, low-maintenance build",
         ],
-        image: wirecut,
+        image: superImg,
         specs: [
           { label: "Models", value: "FK7735-Super / FK7745-Super / FK7755-Super / FK7763-Super" },
           { label: "Table travel X/Y (mm)", value: "350×450 up to 630×800" },
@@ -195,7 +210,8 @@ export const categories: Category[] = [
           "Three-stage adjustable wire tension",
           "High stability, minimized vibration",
         ],
-        image: wirecut,
+        image: fztImg1,
+        images: [fztImg1, fztImg2],
         specs: [
           { label: "Models", value: "FZT-320 / FZT-400 / FZT-500 / FZT-630" },
           { label: "Table travel X/Y (mm)", value: "400×320 up to 800×630" },
@@ -220,7 +236,7 @@ export const categories: Category[] = [
           "High-quality LM components throughout",
           "Advanced UV axis for taper cutting",
         ],
-        image: wirecut,
+        image: fdkImg,
         specs: [
           { label: "Models", value: "FDK-7725 / FDK-7735 / FDK-7745 / FDK-7763" },
           { label: "Table travel X×Y (mm)", value: "320×250 up to 800×630" },
@@ -229,18 +245,6 @@ export const categories: Category[] = [
           { label: "Wire diameter", value: "Ø 0.12–0.25 mm" },
           { label: "Power supply", value: "220V/50Hz (1-ph) / 415V/50Hz (3-ph)" },
         ],
-      },
-      {
-        slug: "elite-series",
-        name: "Elite Series",
-        series: "Elite Series",
-        tagline: "Precision as a standard, not an option.",
-        description:
-          "The Elite Series balances speed and mirror-finish quality. Ideal for die makers who need repeatable ±0.005 mm accuracy day after day.",
-        applications: ["Die & Mold", "Tool Room", "Electronics"],
-        highlights: [...genericHighlights, "Multi-cut for mirror finish"],
-        image: wirecut,
-        specs: editableSpecs,
       },
     ],
   },
