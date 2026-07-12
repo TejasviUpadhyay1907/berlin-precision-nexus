@@ -40,7 +40,7 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       <Nav overHero />
       <Hero />
       <TrustBar />
@@ -416,15 +416,15 @@ function Hypercut() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="mt-10 grid grid-cols-3 gap-6 max-w-lg">
+            <div className="mt-10 grid grid-cols-3 gap-4 sm:gap-6 max-w-lg">
               {[
                 { v: "300", u: "mm³/min", l: "Max speed" },
                 { v: "0.010", u: "mm", l: "Accuracy" },
                 { v: "2000", u: "kg", l: "Workpiece" },
               ].map((s) => (
-                <div key={s.l} className="border-l border-white/15 pl-4">
-                  <div className="font-display font-black text-3xl text-white">{s.v}</div>
-                  <div className="text-[10px] tracking-[0.2em] text-white/50 mt-1">{s.u.toUpperCase()}</div>
+                <div key={s.l} className="border-l border-white/15 pl-3 sm:pl-4">
+                  <div className="font-display font-black text-2xl sm:text-3xl text-white">{s.v}</div>
+                  <div className="text-[9px] sm:text-[10px] tracking-[0.2em] text-white/50 mt-1">{s.u.toUpperCase()}</div>
                   <div className="text-xs text-white/70 mt-2">{s.l}</div>
                 </div>
               ))}
@@ -474,11 +474,11 @@ function IndustriesSection() {
         <div className="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px bg-border">
           {industries.map((ind, i) => (
             <Reveal key={ind} delay={i * 0.03}>
-              <div className="bg-white p-8 h-full group cursor-default hover:bg-berlin-red transition-colors duration-500">
+              <div className="bg-white p-5 sm:p-8 h-full group cursor-default hover:bg-berlin-red transition-colors duration-500">
                 <div className="text-[10px] font-semibold tracking-[0.25em] text-berlin-red group-hover:text-white/80 transition-colors">
                   {String(i + 1).padStart(2, "0")}
                 </div>
-                <div className="mt-6 font-display font-bold text-xl text-graphite group-hover:text-white transition-colors">
+                <div className="mt-4 sm:mt-6 font-display font-bold text-base sm:text-xl text-graphite group-hover:text-white transition-colors">
                   {ind}
                 </div>
               </div>
@@ -692,11 +692,11 @@ function StatsSection() {
     <section className="relative py-20 md:py-24 bg-berlin-red text-white overflow-hidden">
       <div className="absolute inset-0 grid-lines opacity-30" />
       <div className="container-x relative">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.08}>
               <div>
-                <div className="font-display font-black text-5xl md:text-6xl leading-none">
+                <div className="font-display font-black text-3xl sm:text-5xl md:text-6xl leading-none">
                   <Counter to={s.value} suffix={s.suffix} />
                 </div>
                 <div className="mt-3 h-px w-10 bg-white/50" />

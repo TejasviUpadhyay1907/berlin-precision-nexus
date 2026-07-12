@@ -83,6 +83,7 @@
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   body {
@@ -90,6 +91,7 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4 {

@@ -78,7 +78,7 @@ function ContactPage() {
                     </div>
                     <div>
                       <div className="text-[10px] tracking-[0.25em] font-semibold text-muted-foreground">{label.toUpperCase()}</div>
-                      <div className="mt-1 font-semibold text-graphite">{val}</div>
+                      <div className="mt-1 font-semibold text-graphite break-all sm:break-normal">{val}</div>
                     </div>
                   </div>
                 );

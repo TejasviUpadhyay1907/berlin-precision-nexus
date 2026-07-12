@@ -20,12 +20,19 @@ export function Footer() {
             India&apos;s manufacturing future since {site.since}.
           </p>
           <div className="mt-6 flex gap-3">
-            {[Linkedin, Youtube, Facebook, Instagram].map((Icon, i) => (
+            {[
+              { Icon: Linkedin, href: "https://www.linkedin.com/company/berlinmachineries/", label: "LinkedIn" },
+              { Icon: Youtube, href: "https://www.youtube.com/@BerlinMachineries", label: "YouTube" },
+              { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=100066802913814", label: "Facebook" },
+              { Icon: Instagram, href: "https://www.instagram.com/berlinmachinecorporation/", label: "Instagram" },
+            ].map(({ Icon, href, label }) => (
               <a
-                key={i}
-                href="#"
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="h-10 w-10 grid place-items-center border border-white/15 hover:border-berlin-red hover:bg-berlin-red transition-all"
-                aria-label="Social link"
+                aria-label={label}
               >
                 <Icon className="h-4 w-4" />
               </a>
