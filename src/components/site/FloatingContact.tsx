@@ -49,7 +49,7 @@ export function FloatingContact() {
       <div
         className={`flex flex-col items-end gap-2 transition-all duration-300 origin-bottom ${
           expanded ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0 pointer-events-none"
-        } md:opacity-100 md:scale-y-100 md:pointer-events-auto`}
+        }`}
       >
         {contacts.map(({ icon: Icon, label, href, color, external }) => (
           <a
@@ -66,11 +66,11 @@ export function FloatingContact() {
         ))}
       </div>
 
-      {/* Toggle button — visible on mobile always, hidden on desktop */}
+      {/* Toggle button — visible on all screens */}
       <button
         onClick={() => setExpanded((e) => !e)}
         aria-label="Toggle contact options"
-        className={`md:hidden h-12 w-12 rounded-full bg-berlin-red text-white flex items-center justify-center shadow-xl transition-all duration-300 hover:bg-berlin-red-dark hover:scale-110 ${
+        className={`h-12 w-12 rounded-full bg-berlin-red text-white flex items-center justify-center shadow-xl transition-all duration-300 hover:bg-berlin-red-dark hover:scale-110 ${
           expanded ? "rotate-45" : ""
         }`}
       >

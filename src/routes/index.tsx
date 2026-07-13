@@ -142,20 +142,17 @@ function Hero() {
           className="absolute inset-0 transition-opacity duration-[1200ms] ease-in-out"
           style={{ opacity: slide === i + 1 ? 1 : 0, pointerEvents: slide === i + 1 ? "auto" : "none", zIndex: slide === i + 1 ? 5 : 0 }}
         >
-          {/* MOBILE: image centered (slightly above), text overlapping bottom area */}
+          {/* MOBILE: image slightly above center, text slightly above bottom */}
           <div className="relative h-full md:hidden bg-graphite">
-            <img src={cs.img} alt={cs.title} className="absolute inset-0 w-full h-full object-contain" style={{ objectPosition: "center 40%" }} />
-            {/* Text positioned based on align */}
-            <div className={cs.align === "center" ? "absolute inset-0 flex items-center justify-center px-5" : "absolute inset-x-0 bottom-[15%] px-5"}>
-              <div className={cs.align === "center" ? "bg-black/50 backdrop-blur-sm px-5 py-4 text-center border border-white/10" : ""}>
-                <div className={`inline-flex items-center gap-2 text-[9px] font-semibold tracking-[0.2em] text-berlin-red ${cs.align === "center" ? "justify-center" : ""}`}>
-                  <span className="h-px w-6 bg-berlin-red" />
-                  {cs.eyebrow}
-                  {cs.align === "center" && <span className="h-px w-6 bg-berlin-red" />}
-                </div>
-                <div className="mt-2 font-display font-bold text-lg leading-snug text-white">
-                  {cs.title}
-                </div>
+            <img src={cs.img} alt={cs.title} className="absolute inset-0 w-full h-full object-contain" style={{ objectPosition: "center 35%" }} />
+            {/* Text slightly above bottom */}
+            <div className="absolute inset-x-0 bottom-[35%] px-5">
+              <div className="inline-flex items-center gap-2 text-[9px] font-semibold tracking-[0.2em] text-berlin-red">
+                <span className="h-px w-6 bg-berlin-red" />
+                {cs.eyebrow}
+              </div>
+              <div className="mt-2 font-display font-bold text-lg leading-snug text-white">
+                {cs.title}
               </div>
             </div>
           </div>
