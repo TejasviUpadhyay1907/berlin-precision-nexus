@@ -10,10 +10,7 @@ import factoryImg from "@/assets/factory.jpg";
 
 import slide1 from "@/assets/slide1.PNG";
 import slide2 from "@/assets/slide2.PNG";
-import slide3 from "@/assets/slide3.PNG";
 import slide5 from "@/assets/slide5.png";
-import slide6 from "@/assets/slide6.PNG";
-import slide7 from "@/assets/slide7.PNG";
 
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
@@ -126,10 +123,7 @@ function Hero() {
   const companySlides = [
     { img: slide1, eyebrow: "PRECISION FROM THE GROUND UP", title: "Every machine begins with rigid, hand-crafted castings.", align: "center" as const },
     { img: slide2, eyebrow: "BUILT IN-HOUSE", title: "From raw casting to finished precision — engineered under one roof.", align: "right" as const },
-    { img: slide3, eyebrow: "TRUSTED PARTNERSHIPS", title: "Standing beside the makers who build India.", align: "left" as const },
     { img: slide5, eyebrow: "ENGINEERING EXCELLENCE", title: "A team that lives and breathes machining.", align: "left" as const },
-    { img: slide6, eyebrow: "RECOGNIZED NATIONWIDE", title: "Award-winning engineering, powered by our people.", align: "left" as const },
-    { img: slide7, eyebrow: "DRIVEN BY EXCELLENCE", title: "Two decades of trust, innovation and craftsmanship.", align: "left" as const },
   ];
   const totalSlides = companySlides.length + 1;
   const [slide, setSlide] = useState(0);
