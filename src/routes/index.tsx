@@ -145,7 +145,7 @@ function Hero() {
           {/* MOBILE: image at dead center, text starts just below it */}
           <div className="relative h-full md:hidden bg-graphite flex flex-col items-center justify-center px-5">
             <img src={cs.img} alt={cs.title} className="w-full object-contain max-h-[55%]" />
-            <div className="mt-4 w-full">
+            <div className="mt-8 w-full">
               <div className="inline-flex items-center gap-2 text-[9px] font-semibold tracking-[0.2em] text-berlin-red">
                 <span className="h-px w-6 bg-berlin-red" />
                 {cs.eyebrow}
@@ -154,7 +154,6 @@ function Hero() {
                 {cs.title}
               </div>
             </div>
-          </div>
           </div>
 
           {/* DESKTOP: full-screen with overlay card */}
