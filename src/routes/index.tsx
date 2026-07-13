@@ -8,6 +8,13 @@ import heroImg from "@/assets/hero-machine.jpg";
 import sparksImg from "@/assets/edm-sparks.jpg";
 import factoryImg from "@/assets/factory.jpg";
 
+import slide1 from "@/assets/slide1.PNG";
+import slide2 from "@/assets/slide2.PNG";
+import slide3 from "@/assets/slide3.PNG";
+import slide5 from "@/assets/slide5.png";
+import slide6 from "@/assets/slide6.PNG";
+import slide7 from "@/assets/slide7.PNG";
+
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
@@ -115,10 +122,72 @@ function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const reduce = useReducedMotion();
 
+  // Company image slides (shown after the main hero slide)
+  const companySlides = [
+    { img: slide1, eyebrow: "PRECISION FROM THE GROUND UP", title: "Every machine begins with rigid, hand-crafted castings.", align: "center" as const },
+    { img: slide2, eyebrow: "BUILT IN-HOUSE", title: "From raw casting to finished precision — engineered under one roof.", align: "right" as const },
+    { img: slide3, eyebrow: "TRUSTED PARTNERSHIPS", title: "Standing beside the makers who build India.", align: "left" as const },
+    { img: slide5, eyebrow: "ENGINEERING EXCELLENCE", title: "A team that lives and breathes machining.", align: "left" as const },
+    { img: slide6, eyebrow: "RECOGNIZED NATIONWIDE", title: "Award-winning engineering, powered by our people.", align: "left" as const },
+    { img: slide7, eyebrow: "DRIVEN BY EXCELLENCE", title: "Two decades of trust, innovation and craftsmanship.", align: "left" as const },
+  ];
+  const totalSlides = companySlides.length + 1;
+  const [slide, setSlide] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setSlide((s) => (s + 1) % totalSlides), 6000);
+    return () => clearInterval(t);
+  }, [totalSlides]);
+
   return (
-    <section ref={ref} className="relative min-h-screen bg-graphite text-white overflow-hidden">
-      {/* Machine image — parallax + subtle float */}
-      <motion.div style={{ y }} className="absolute inset-0">
+    <section ref={ref} className="group/hero relative min-h-screen bg-graphite text-white overflow-hidden">
+      {/* ============ COMPANY IMAGE SLIDES (crossfade) ============ */}
+      {companySlides.map((cs, i) => (
+        <div
+          key={i}
+          className="absolute inset-0 transition-opacity duration-[1200ms] ease-in-out"
+          style={{ opacity: slide === i + 1 ? 1 : 0, pointerEvents: slide === i + 1 ? "auto" : "none", zIndex: slide === i + 1 ? 5 : 0 }}
+        >
+          <img src={cs.img} alt={cs.title} className="w-full h-full object-cover object-center" />
+          {/* gradient overlays so image stays visible but text is readable */}
+          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-graphite via-graphite/25 to-transparent" />
+          {cs.align === "left" && <div className="absolute inset-0 bg-gradient-to-r from-graphite/60 via-transparent to-transparent" />}
+          {cs.align === "right" && <div className="absolute inset-0 bg-gradient-to-l from-graphite/60 via-transparent to-transparent" />}
+
+          {/* Glass content card */}
+          <div
+            className={
+              cs.align === "center"
+                ? "absolute left-1/2 -translate-x-1/2 bottom-24 md:bottom-28 w-auto max-w-[90%] md:max-w-lg"
+                : cs.align === "right"
+                  ? "absolute right-4 md:right-12 bottom-24 md:bottom-28 max-w-[85%] md:max-w-md"
+                  : "absolute left-4 md:left-12 bottom-24 md:bottom-28 max-w-[85%] md:max-w-md"
+            }
+          >
+            <div
+              className={`border border-white/15 bg-black/40 backdrop-blur-md transition-all duration-700 ${
+                cs.align === "center" ? "px-6 py-4 md:px-8 md:py-5 text-center" : "p-5 md:p-7"
+              }`}
+              style={{ transform: slide === i + 1 ? "translateY(0)" : "translateY(20px)", opacity: slide === i + 1 ? 1 : 0 }}
+            >
+              <div className={`inline-flex items-center gap-3 text-[10px] md:text-[11px] font-semibold tracking-[0.25em] text-berlin-red ${cs.align === "center" ? "justify-center" : ""}`}>
+                <span className="h-px w-8 bg-berlin-red" />
+                {cs.eyebrow}
+                {cs.align === "center" && <span className="h-px w-8 bg-berlin-red" />}
+              </div>
+              <div className={`mt-3 font-display font-black leading-tight text-white ${cs.align === "center" ? "text-lg md:text-xl lg:text-2xl" : "text-xl md:text-2xl lg:text-3xl"}`}>
+                {cs.title}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+
+      {/* Machine image — parallax + subtle float (slide 0) */}
+      <motion.div
+        style={{ y, opacity: slide === 0 ? 1 : 0 }}
+        className="absolute inset-0 transition-opacity duration-[1200ms] ease-in-out"
+      >
         <motion.div
           className="absolute inset-0"
           animate={reduce ? undefined : { y: [0, -3, 0, 2, 0], x: [0, 1, 0, -1, 0] }}
@@ -155,8 +224,15 @@ function Hero() {
       {/* Sparks near cutting area */}
       <Sparks />
 
-      <motion.div style={{ opacity }} className="relative container-x pt-32 md:pt-40 pb-16">
-        <div className="max-w-3xl">
+      <motion.div
+        style={{ opacity }}
+        className="relative container-x pt-32 md:pt-40 pb-16 transition-opacity duration-700"
+        aria-hidden={slide !== 0}
+      >
+        <div
+          className="max-w-3xl transition-opacity duration-700"
+          style={{ opacity: slide === 0 ? 1 : 0, pointerEvents: slide === 0 ? "auto" : "none" }}
+        >
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -250,7 +326,8 @@ function Hero() {
           initial={{ opacity: 0, x: 30, y: 10 }}
           animate={{ opacity: 1, x: 0, y: 0 }}
           transition={{ duration: 0.7, delay: 0.95, ease: [0.2, 0.7, 0.2, 1] }}
-          className="hidden lg:block absolute right-8 bottom-24 border border-white/15 bg-white/5 backdrop-blur-sm p-6 max-w-[280px]"
+          className="hidden lg:block absolute right-8 bottom-24 border border-white/15 bg-white/5 backdrop-blur-sm p-6 max-w-[280px] transition-opacity duration-700"
+          style={{ opacity: slide === 0 ? 1 : 0, pointerEvents: slide === 0 ? "auto" : "none" }}
         >
           <div className="text-[10px] tracking-[0.25em] text-berlin-red font-semibold">MAX CUTTING SPEED</div>
           <div className="mt-2 font-display font-black text-6xl leading-none text-white tabular-nums">
@@ -265,7 +342,8 @@ function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 1.3 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 text-[10px] tracking-[0.3em]"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-white/50 text-[10px] tracking-[0.3em] hidden md:flex transition-opacity duration-500"
+        style={{ opacity: slide === 0 ? 1 : 0 }}
       >
         <span>SCROLL</span>
         <div className="w-px h-12 bg-white/15 relative overflow-hidden">
@@ -276,6 +354,39 @@ function Hero() {
           />
         </div>
       </motion.div>
+
+      {/* ============ SLIDER CONTROLS ============ */}
+      {/* Prev / Next arrows (appear on hover) */}
+      <button
+        onClick={() => setSlide((s) => (s - 1 + totalSlides) % totalSlides)}
+        aria-label="Previous slide"
+        className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 h-11 w-11 grid place-items-center border border-white/20 bg-black/30 backdrop-blur-sm text-white/70 hover:text-white hover:border-berlin-red hover:bg-berlin-red/80 transition-all opacity-0 group-hover/hero:opacity-100 focus:opacity-100"
+      >
+        <ArrowRight className="h-4 w-4 rotate-180" />
+      </button>
+      <button
+        onClick={() => setSlide((s) => (s + 1) % totalSlides)}
+        aria-label="Next slide"
+        className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 h-11 w-11 grid place-items-center border border-white/20 bg-black/30 backdrop-blur-sm text-white/70 hover:text-white hover:border-berlin-red hover:bg-berlin-red/80 transition-all opacity-0 group-hover/hero:opacity-100 focus:opacity-100"
+      >
+        <ArrowRight className="h-4 w-4" />
+      </button>
+
+      {/* Progress indicator dots */}
+      <div className="absolute bottom-8 right-6 md:right-12 z-20 flex items-center gap-2">
+        {Array.from({ length: totalSlides }).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setSlide(i)}
+            aria-label={`Go to slide ${i + 1}`}
+            className="h-1.5 rounded-full transition-all duration-500"
+            style={{
+              width: slide === i ? "28px" : "10px",
+              backgroundColor: slide === i ? "#C8102E" : "rgba(255,255,255,0.35)",
+            }}
+          />
+        ))}
+      </div>
     </section>
   );
 }
