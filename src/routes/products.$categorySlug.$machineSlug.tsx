@@ -46,7 +46,7 @@ function MachinePage() {
   const related = category.machines.filter((m) => m.slug !== machine.slug).slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-white pb-16 lg:pb-0">
+    <div className="min-h-screen bg-white">
       <Nav />
 
       {/* Hero */}
@@ -206,35 +206,6 @@ function MachinePage() {
       )}
 
       <Footer />
-
-      {/* Sticky mobile contact bar */}
-      <div className="fixed bottom-0 inset-x-0 z-40 bg-graphite border-t border-white/10 p-3 flex items-center justify-between gap-2 lg:hidden">
-        <a
-          href={`https://wa.me/${site.phone.replace(/\D/g, "")}?text=${encodeURIComponent(`Hi, I'm interested in the ${machine.name} (${category.name}).`)}`}
-          className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#25D366] text-white py-2.5 text-[11px] font-bold tracking-wider"
-        >
-          <MessageCircle className="h-3.5 w-3.5" /> WhatsApp
-        </a>
-        <a
-          href={`tel:${site.phone.replace(/\s/g, "")}`}
-          className="flex-1 inline-flex items-center justify-center gap-1.5 border border-white/20 text-white py-2.5 text-[11px] font-bold tracking-wider"
-        >
-          <Phone className="h-3.5 w-3.5" /> Call
-        </a>
-        <a
-          href={`mailto:${site.email}?subject=${encodeURIComponent(`Enquiry: ${machine.name}`)}`}
-          className="flex-1 inline-flex items-center justify-center gap-1.5 border border-white/20 text-white py-2.5 text-[11px] font-bold tracking-wider"
-        >
-          <Mail className="h-3.5 w-3.5" /> Email
-        </a>
-        <Link
-          to="/contact"
-          search={{ machine: `${machine.name} (${category.name})` } as any}
-          className="flex-1 inline-flex items-center justify-center gap-1.5 bg-berlin-red text-white py-2.5 text-[11px] font-bold tracking-wider"
-        >
-          Quote
-        </Link>
-      </div>
     </div>
   );
 }

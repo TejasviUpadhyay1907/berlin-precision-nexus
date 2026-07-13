@@ -40,9 +40,8 @@ export function Nav({ overHero = false }: { overHero?: boolean }) {
             src="/logo.png"
             alt="Berlin Machineries"
             className={`h-9 md:h-11 w-auto object-contain transition-all duration-300 ${
-              solid ? "drop-shadow-none" : "brightness-110 drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
+              solid ? "" : "mix-blend-lighten"
             }`}
-            style={{ background: "transparent" }}
           />
         </Link>
 

@@ -122,7 +122,7 @@ function Hero() {
   // Company image slides (shown after the main hero slide)
   const companySlides = [
     { img: slide1, eyebrow: "PRECISION FROM THE GROUND UP", title: "Every machine begins with rigid, hand-crafted castings.", align: "center" as const },
-    { img: slide2, eyebrow: "BUILT IN-HOUSE", title: "From raw casting to finished precision — engineered under one roof.", align: "right" as const },
+    { img: slide2, eyebrow: "BUILT IN-HOUSE", title: "From raw casting to finished precision — engineered under one roof.", align: "center" as const },
     { img: slide5, eyebrow: "ENGINEERING EXCELLENCE", title: "A team that lives and breathes machining.", align: "left" as const },
   ];
   const totalSlides = companySlides.length + 1;
@@ -142,35 +142,43 @@ function Hero() {
           className="absolute inset-0 transition-opacity duration-[1200ms] ease-in-out"
           style={{ opacity: slide === i + 1 ? 1 : 0, pointerEvents: slide === i + 1 ? "auto" : "none", zIndex: slide === i + 1 ? 5 : 0 }}
         >
-          <img src={cs.img} alt={cs.title} className="w-full h-full object-cover object-center" />
-          {/* gradient overlays so image stays visible but text is readable */}
-          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-graphite via-graphite/25 to-transparent" />
-          {cs.align === "left" && <div className="absolute inset-0 bg-gradient-to-r from-graphite/60 via-transparent to-transparent" />}
-          {cs.align === "right" && <div className="absolute inset-0 bg-gradient-to-l from-graphite/60 via-transparent to-transparent" />}
-
-          {/* Glass content card */}
-          <div
-            className={
-              cs.align === "center"
-                ? "absolute left-1/2 -translate-x-1/2 bottom-24 md:bottom-28 w-auto max-w-[90%] md:max-w-lg"
-                : cs.align === "right"
-                  ? "absolute right-4 md:right-12 bottom-24 md:bottom-28 max-w-[85%] md:max-w-md"
-                  : "absolute left-4 md:left-12 bottom-24 md:bottom-28 max-w-[85%] md:max-w-md"
-            }
-          >
-            <div
-              className={`border border-white/15 bg-black/40 backdrop-blur-md transition-all duration-700 ${
-                cs.align === "center" ? "px-6 py-4 md:px-8 md:py-5 text-center" : "p-5 md:p-7"
-              }`}
-              style={{ transform: slide === i + 1 ? "translateY(0)" : "translateY(20px)", opacity: slide === i + 1 ? 1 : 0 }}
-            >
-              <div className={`inline-flex items-center gap-3 text-[10px] md:text-[11px] font-semibold tracking-[0.25em] text-berlin-red ${cs.align === "center" ? "justify-center" : ""}`}>
-                <span className="h-px w-8 bg-berlin-red" />
-                {cs.eyebrow}
-                {cs.align === "center" && <span className="h-px w-8 bg-berlin-red" />}
+          {/* MOBILE: image centered (slightly above), text overlapping bottom area */}
+          <div className="relative h-full md:hidden bg-graphite">
+            <img src={cs.img} alt={cs.title} className="absolute inset-0 w-full h-full object-contain" style={{ objectPosition: "center 40%" }} />
+            {/* Text positioned based on align */}
+            <div className={cs.align === "center" ? "absolute inset-0 flex items-center justify-center px-5" : "absolute inset-x-0 bottom-[15%] px-5"}>
+              <div className={cs.align === "center" ? "bg-black/50 backdrop-blur-sm px-5 py-4 text-center border border-white/10" : ""}>
+                <div className={`inline-flex items-center gap-2 text-[9px] font-semibold tracking-[0.2em] text-berlin-red ${cs.align === "center" ? "justify-center" : ""}`}>
+                  <span className="h-px w-6 bg-berlin-red" />
+                  {cs.eyebrow}
+                  {cs.align === "center" && <span className="h-px w-6 bg-berlin-red" />}
+                </div>
+                <div className="mt-2 font-display font-bold text-lg leading-snug text-white">
+                  {cs.title}
+                </div>
               </div>
-              <div className={`mt-3 font-display font-black leading-tight text-white ${cs.align === "center" ? "text-lg md:text-xl lg:text-2xl" : "text-xl md:text-2xl lg:text-3xl"}`}>
-                {cs.title}
+            </div>
+          </div>
+
+          {/* DESKTOP: full-screen with overlay card */}
+          <div className="hidden md:block absolute inset-0">
+            <img src={cs.img} alt={cs.title} className="absolute inset-0 w-full h-full object-cover object-center" />
+            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-graphite via-graphite/25 to-transparent" />
+            {cs.align === "left" && <div className="absolute inset-0 bg-gradient-to-r from-graphite/60 via-transparent to-transparent" />}
+            {cs.align === "right" && <div className="absolute inset-0 bg-gradient-to-l from-graphite/60 via-transparent to-transparent" />}
+            <div className={cs.align === "center" ? "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-lg" : cs.align === "right" ? "absolute right-12 bottom-28 max-w-md" : "absolute left-12 bottom-28 max-w-md"}>
+              <div
+                className={`border border-white/15 bg-black/40 backdrop-blur-md transition-all duration-700 ${cs.align === "center" ? "px-8 py-5 text-center" : "p-7"}`}
+                style={{ transform: slide === i + 1 ? "translateY(0)" : "translateY(20px)", opacity: slide === i + 1 ? 1 : 0 }}
+              >
+                <div className={`inline-flex items-center gap-3 text-[11px] font-semibold tracking-[0.25em] text-berlin-red ${cs.align === "center" ? "justify-center" : ""}`}>
+                  <span className="h-px w-8 bg-berlin-red" />
+                  {cs.eyebrow}
+                  {cs.align === "center" && <span className="h-px w-8 bg-berlin-red" />}
+                </div>
+                <div className={`mt-3 font-display font-black leading-tight text-white ${cs.align === "center" ? "text-xl lg:text-2xl" : "text-2xl lg:text-3xl"}`}>
+                  {cs.title}
+                </div>
               </div>
             </div>
           </div>
@@ -320,7 +328,7 @@ function Hero() {
           initial={{ opacity: 0, x: 30, y: 10 }}
           animate={{ opacity: 1, x: 0, y: 0 }}
           transition={{ duration: 0.7, delay: 0.95, ease: [0.2, 0.7, 0.2, 1] }}
-          className="hidden lg:block absolute right-8 bottom-24 border border-white/15 bg-white/5 backdrop-blur-sm p-6 max-w-[280px] transition-opacity duration-700"
+          className="hidden lg:block absolute right-8 bottom-40 border border-white/15 bg-white/5 backdrop-blur-sm p-6 max-w-[280px] transition-opacity duration-700"
           style={{ opacity: slide === 0 ? 1 : 0, pointerEvents: slide === 0 ? "auto" : "none" }}
         >
           <div className="text-[10px] tracking-[0.25em] text-berlin-red font-semibold">MAX CUTTING SPEED</div>
@@ -330,23 +338,6 @@ function Hero() {
           </div>
           <div className="mt-3 text-xs text-white/60">2× faster than anything else in class.</div>
         </motion.div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.3 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-white/50 text-[10px] tracking-[0.3em] hidden md:flex transition-opacity duration-500"
-        style={{ opacity: slide === 0 ? 1 : 0 }}
-      >
-        <span>SCROLL</span>
-        <div className="w-px h-12 bg-white/15 relative overflow-hidden">
-          <motion.div
-            className="absolute inset-x-0 top-0 h-5 bg-gradient-to-b from-transparent via-berlin-red to-transparent"
-            animate={{ y: [-20, 48] }}
-            transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </div>
       </motion.div>
 
       {/* ============ SLIDER CONTROLS ============ */}
