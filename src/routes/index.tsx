@@ -142,11 +142,10 @@ function Hero() {
           className="absolute inset-0 transition-opacity duration-[1200ms] ease-in-out"
           style={{ opacity: slide === i + 1 ? 1 : 0, pointerEvents: slide === i + 1 ? "auto" : "none", zIndex: slide === i + 1 ? 5 : 0 }}
         >
-          {/* MOBILE: image slightly above center, text slightly above bottom */}
-          <div className="relative h-full md:hidden bg-graphite">
-            <img src={cs.img} alt={cs.title} className="absolute inset-0 w-full h-full object-contain" style={{ objectPosition: "center 35%" }} />
-            {/* Text slightly above bottom */}
-            <div className="absolute inset-x-0 bottom-[35%] px-5">
+          {/* MOBILE: image at dead center, text starts just below it */}
+          <div className="relative h-full md:hidden bg-graphite flex flex-col items-center justify-center px-5">
+            <img src={cs.img} alt={cs.title} className="w-full object-contain max-h-[55%]" />
+            <div className="mt-4 w-full">
               <div className="inline-flex items-center gap-2 text-[9px] font-semibold tracking-[0.2em] text-berlin-red">
                 <span className="h-px w-6 bg-berlin-red" />
                 {cs.eyebrow}
@@ -155,6 +154,7 @@ function Hero() {
                 {cs.title}
               </div>
             </div>
+          </div>
           </div>
 
           {/* DESKTOP: full-screen with overlay card */}
