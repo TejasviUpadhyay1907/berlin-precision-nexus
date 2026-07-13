@@ -35,14 +35,12 @@ export function Nav({ overHero = false }: { overHero?: boolean }) {
       }`}
     >
       <div className="container-x flex items-center justify-between h-16 md:h-20">
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="h-10 w-10 grid place-items-center bg-berlin-red text-white font-black text-lg tracking-tighter">
-            B
-          </div>
-          <div className={`leading-none ${solid ? "text-graphite" : "text-white"}`}>
-            <div className="font-display font-black text-lg tracking-tight">BERLIN</div>
-            <div className="text-[10px] tracking-[0.2em] font-medium opacity-70">MACHINERIES</div>
-          </div>
+        <Link to="/" className="flex items-center group">
+          <img
+            src="/logo.png"
+            alt="Berlin Machineries"
+            className="h-9 md:h-11 w-auto object-contain"
+          />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1">

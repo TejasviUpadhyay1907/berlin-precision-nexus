@@ -8,12 +8,8 @@ export function Footer() {
     <footer className="bg-graphite text-white/80">
       <div className="container-x py-20 grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_0.8fr_1fr]">
         <div>
-          <div className="flex items-center gap-3">
-            <div className="h-11 w-11 grid place-items-center bg-berlin-red text-white font-black text-xl">B</div>
-            <div>
-              <div className="font-display font-black text-xl text-white">BERLIN</div>
-              <div className="text-[10px] tracking-[0.25em] opacity-70">MACHINERIES PVT LTD</div>
-            </div>
+          <div className="flex items-center">
+            <img src="/logo.png" alt="Berlin Machineries" className="h-10 w-auto object-contain rounded-sm bg-white/5 p-1" />
           </div>
           <p className="mt-5 text-sm leading-relaxed max-w-sm text-white/60">
             Precision Engineering. Reliable Partnerships. Real Results. Powering
