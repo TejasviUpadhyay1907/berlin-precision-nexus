@@ -30,6 +30,7 @@ export const Route = createFileRoute("/")({
         content:
           "Berlin Machineries Private Limited engineers premium CNC Wire Cut EDM, Sinker EDM, EDM Drill, milling, grinding and lathe machines. 5000+ installations across India.",
       },
+      { property: "og:url", content: "https://www.berlinmachineries.com/" },
       { property: "og:title", content: "Berlin Machineries — Precision CNC & EDM Machines Since 2005" },
       {
         property: "og:description",
@@ -37,6 +38,10 @@ export const Route = createFileRoute("/")({
           "Berlin Machineries Private Limited engineers premium CNC Wire Cut EDM, Sinker EDM, EDM Drill, milling, grinding and lathe machines. 5000+ installations across India.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "https://www.berlinmachineries.com/og-image.jpg" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://www.berlinmachineries.com/" },
     ],
   }),
   component: Home,

@@ -12,8 +12,12 @@ export const Route = createFileRoute("/products/")({
     meta: [
       { title: "Products — CNC & EDM Machinery | Berlin Machineries" },
       { name: "description", content: "Explore Berlin Machineries' complete range of CNC Wire Cut EDM, Sinker EDM, EDM Drill, milling, grinding and lathe machines." },
+      { property: "og:url", content: "https://www.berlinmachineries.com/products" },
       { property: "og:title", content: "Berlin Products — CNC & EDM Machinery" },
       { property: "og:description", content: "The complete Berlin tool-room portfolio: N, Hyper, Elite, FDK, Super, Sinker EDM, ZNC, EDM Drill, milling, grinding, lathe and drilling." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://www.berlinmachineries.com/products" },
     ],
   }),
   component: ProductsIndex,

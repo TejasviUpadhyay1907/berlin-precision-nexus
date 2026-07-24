@@ -13,8 +13,12 @@ export const Route = createFileRoute("/contact")({
     meta: [
       { title: "Contact — Berlin Machineries Private Limited" },
       { name: "description", content: `Talk to Berlin Machineries. Call ${site.phone} or email ${site.email}. Based in Pune, India.` },
+      { property: "og:url", content: "https://www.berlinmachineries.com/contact" },
       { property: "og:title", content: "Contact Berlin Machineries" },
       { property: "og:description", content: `Get a quote from Berlin Machineries. ${site.phone}` },
+    ],
+    links: [
+      { rel: "canonical", href: "https://www.berlinmachineries.com/contact" },
     ],
   }),
   component: ContactPage,

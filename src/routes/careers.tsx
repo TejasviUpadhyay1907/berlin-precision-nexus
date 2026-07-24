@@ -12,8 +12,12 @@ export const Route = createFileRoute("/careers")({
     meta: [
       { title: "Careers — Berlin Machineries Private Limited" },
       { name: "description", content: "Join 1,850+ engineers, machinists and service professionals across four continents. Build the machines that build the world." },
+      { property: "og:url", content: "https://www.berlinmachineries.com/careers" },
       { property: "og:title", content: "Careers at Berlin Machineries" },
       { property: "og:description", content: "Explore career opportunities at Berlin Machineries. Engineering, sales, service, R&D and operations roles." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://www.berlinmachineries.com/careers" },
     ],
   }),
   component: CareersPage,

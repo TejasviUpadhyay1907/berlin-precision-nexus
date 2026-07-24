@@ -12,8 +12,12 @@ export const Route = createFileRoute("/about")({
     meta: [
       { title: "About — Berlin Machineries Private Limited" },
       { name: "description", content: "Since 2005 Berlin Machineries has delivered 5000+ precision CNC and EDM machines across India. Discover our story, vision and manufacturing philosophy." },
+      { property: "og:url", content: "https://www.berlinmachineries.com/about" },
       { property: "og:title", content: "About Berlin Machineries" },
       { property: "og:description", content: "Precision engineering. Reliable partnerships. Real results. Since 2005." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://www.berlinmachineries.com/about" },
     ],
   }),
   component: AboutPage,

@@ -4,7 +4,7 @@ export const site = {
   tagline: "Engineered to cut beyond limits.",
   phone: "+91 88741 57222",
   email: "info@berlinmachineries.com",
-  website: "www.cncedmmachine.com",
+  website: "www.berlinmachineries.com",
   address: "Pune, Maharashtra, India",
   hours: "Mon – Sat · 9:30 AM – 6:30 PM",
   since: 2005,

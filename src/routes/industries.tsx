@@ -22,8 +22,12 @@ export const Route = createFileRoute("/industries")({
     meta: [
       { title: "Industries Served — Berlin Machineries" },
       { name: "description", content: "Berlin CNC and EDM machines power automotive, aerospace, defense, medical, electronics, die & mold, energy and precision engineering across India." },
+      { property: "og:url", content: "https://www.berlinmachineries.com/industries" },
       { property: "og:title", content: "Industries Served — Berlin Machineries" },
       { property: "og:description", content: "Built for industries that demand more — automotive to aerospace, medical to defense." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://www.berlinmachineries.com/industries" },
     ],
   }),
   component: IndustriesPage,

@@ -74,20 +74,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Berlin Machineries — Precision CNC & EDM Machines Since 2008" },
+      { title: "Berlin Machineries — Precision CNC & EDM Machines Since 2005" },
       { name: "description", content: "Berlin Machineries Private Limited engineers premium CNC Wire Cut EDM, Sinker EDM, EDM Drill, milling, grinding and lathe machines. 5000+ installations across India." },
       { name: "author", content: "Berlin Machineries Private Limited" },
-      { property: "og:title", content: "Berlin Machineries — Precision CNC & EDM Machines Since 2008" },
+      { property: "og:site_name", content: "Berlin Machineries" },
+      { property: "og:url", content: "https://www.berlinmachineries.com" },
+      { property: "og:title", content: "Berlin Machineries — Precision CNC & EDM Machines Since 2005" },
       { property: "og:description", content: "Berlin Machineries Private Limited engineers premium CNC Wire Cut EDM, Sinker EDM, EDM Drill, milling, grinding and lathe machines. 5000+ installations across India." },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "https://www.berlinmachineries.com/og-image.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Berlin Machineries — Precision CNC & EDM Machines Since 2008" },
+      { name: "twitter:title", content: "Berlin Machineries — Precision CNC & EDM Machines Since 2005" },
       { name: "twitter:description", content: "Berlin Machineries Private Limited engineers premium CNC Wire Cut EDM, Sinker EDM, EDM Drill, milling, grinding and lathe machines. 5000+ installations across India." },
-      { property: "og:image", content: "https://www.cncedmmachine.com/og-image.jpg" },
-      { name: "twitter:image", content: "https://www.cncedmmachine.com/og-image.jpg" },
+      { name: "twitter:image", content: "https://www.berlinmachineries.com/og-image.jpg" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "canonical", href: "https://www.berlinmachineries.com" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" },
@@ -111,6 +114,39 @@ function RootShell({ children }: { children: ReactNode }) {
       </head>
       <body>
         {children}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Berlin Machineries Private Limited",
+              "url": "https://www.berlinmachineries.com",
+              "logo": "https://www.berlinmachineries.com/logo.png",
+              "description": "Berlin Machineries Private Limited engineers premium CNC Wire Cut EDM, Sinker EDM, EDM Drill, milling, grinding and lathe machines. 5000+ installations across India.",
+              "foundingDate": "2005",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Pune",
+                "addressRegion": "Maharashtra",
+                "addressCountry": "IN"
+              },
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+91-88741-57222",
+                "contactType": "sales",
+                "email": "info@berlinmachineries.com",
+                "availableLanguage": ["English", "Hindi"]
+              },
+              "sameAs": [
+                "https://www.linkedin.com/company/berlinmachineries/",
+                "https://www.youtube.com/@BerlinMachineries",
+                "https://www.facebook.com/profile.php?id=100066802913814",
+                "https://www.instagram.com/berlinmachinecorporation/"
+              ]
+            }),
+          }}
+        />
         <Scripts />
       </body>
     </html>

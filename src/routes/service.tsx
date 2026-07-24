@@ -11,8 +11,12 @@ export const Route = createFileRoute("/service")({
     meta: [
       { title: "Service & Support — Berlin Machineries" },
       { name: "description", content: "Nationwide service, AMC, training, remote support, calibration, upgradation and genuine spares for every Berlin CNC and EDM machine." },
+      { property: "og:url", content: "https://www.berlinmachineries.com/service" },
       { property: "og:title", content: "Berlin Service — Nationwide Support" },
       { property: "og:description", content: "80+ field engineers. AMC, remote support, training, calibration, upgradation, relocation and spares." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://www.berlinmachineries.com/service" },
     ],
   }),
   component: ServicePage,
