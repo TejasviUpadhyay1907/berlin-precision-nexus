@@ -29,6 +29,7 @@ export const industries = [
   "Energy",
   "Research Institutes",
   "Manufacturing",
+  "Agriculture",
 ];
 
 export const whyBerlin = [

@@ -9,7 +9,7 @@ export function Footer() {
       <div className="container-x py-20 grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_0.8fr_1fr]">
         <div>
           <div className="flex items-center">
-            <img src="/logo.png" alt="Berlin Machineries" className="h-10 w-auto object-contain rounded-sm bg-white/5 p-1" />
+            <img src="/logo.png" alt="Berlin Machineries" className="h-14 w-auto object-contain bg-white rounded-sm px-3 py-2" />
           </div>
           <p className="mt-5 text-sm leading-relaxed max-w-sm text-white/60">
             Precision Engineering. Reliable Partnerships. Real Results. Powering
