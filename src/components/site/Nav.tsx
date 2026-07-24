@@ -39,7 +39,7 @@ export function Nav({ overHero = false }: { overHero?: boolean }) {
           <img
             src="/logo.png"
             alt="Berlin Machineries"
-            className="h-16 md:h-20 w-auto object-contain transition-all duration-300"
+            className="h-24 md:h-28 w-auto object-contain transition-all duration-300"
           />
         </Link>
 

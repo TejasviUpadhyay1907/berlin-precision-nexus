@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { site } from "@/data/site";
 import { categories } from "@/data/products";
 import { Mail, Phone, MapPin, Linkedin, Youtube, Facebook, Instagram } from "lucide-react";
+import newLogo from "@/assets/new_logo.pdf.png";
 
 export function Footer() {
   return (
@@ -9,7 +10,7 @@ export function Footer() {
       <div className="container-x py-20 grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_0.8fr_1fr]">
         <div>
           <div className="flex items-center">
-            <img src="/logo.png" alt="Berlin Machineries" className="h-14 w-auto object-contain bg-white rounded-sm px-3 py-2" />
+            <img src={newLogo} alt="Berlin Machineries" className="h-20 w-auto object-contain" />
           </div>
           <p className="mt-5 text-sm leading-relaxed max-w-sm text-white/60">
             Precision Engineering. Reliable Partnerships. Real Results. Powering
