@@ -85,7 +85,12 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <div className="container-x py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/50">
-          <div>© {new Date().getFullYear()} Berlin Machineries Private Limited. All rights reserved.</div>
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+            <span>© {new Date().getFullYear()} Berlin Machineries Private Limited. All rights reserved.</span>
+            <Link to="/privacy-policy" className="hover:text-berlin-red transition-colors underline underline-offset-2">
+              Privacy Policy
+            </Link>
+          </div>
           <div className="tracking-widest">UNMATCHED SPEED · UNSURPASSED QUALITY · UNLIMITED POSSIBILITIES</div>
         </div>
       </div>
