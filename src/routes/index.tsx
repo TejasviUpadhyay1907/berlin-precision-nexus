@@ -315,7 +315,7 @@ function Hero() {
             </motion.div>
             <motion.div variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}>
               <Link
-                to="/contact"
+                to="/enquiry"
                 className="group inline-flex items-center gap-3 border border-white/25 text-white px-7 py-4 text-sm font-bold tracking-[0.15em] hover:bg-white hover:text-graphite transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02]"
               >
                 REQUEST QUOTE
@@ -716,7 +716,7 @@ function FinalCTA() {
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
-                to="/contact"
+                to="/enquiry"
                 className="group inline-flex items-center gap-3 bg-berlin-red text-white px-8 py-4 text-sm font-bold tracking-[0.15em] hover:bg-berlin-red-dark transition-all hover:-translate-y-0.5"
               >
                 REQUEST A QUOTE <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />

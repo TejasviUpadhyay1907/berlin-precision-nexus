@@ -100,7 +100,7 @@ function BlogPostPage() {
                 Get personalised machine recommendations based on your specific requirements.
               </p>
               <Link
-                to="/contact"
+                to="/enquiry"
                 className="mt-6 inline-flex items-center gap-2 bg-berlin-red text-white px-6 py-3 text-sm font-bold tracking-[0.1em] hover:bg-berlin-red-dark transition-all"
               >
                 GET IN TOUCH <ArrowRight className="h-4 w-4" />

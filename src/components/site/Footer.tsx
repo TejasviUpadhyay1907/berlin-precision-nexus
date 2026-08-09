@@ -60,7 +60,6 @@ export function Footer() {
             <li><Link to="/about" className="hover:text-berlin-red">About</Link></li>
             <li><Link to="/industries" className="hover:text-berlin-red">Industries</Link></li>
             <li><Link to="/service" className="hover:text-berlin-red">Service</Link></li>
-            <li><Link to="/contact" className="hover:text-berlin-red">Contact</Link></li>
             <li><Link to="/careers" className="hover:text-berlin-red">Careers</Link></li>
           </ul>
         </div>

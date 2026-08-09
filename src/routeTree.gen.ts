@@ -9,12 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServiceRouteImport } from './routes/service'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as IndustriesRouteImport } from './routes/industries'
-import { Route as ContactRouteImport } from './routes/contact'
+import { Route as EnquiryRouteImport } from './routes/enquiry'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -24,6 +25,11 @@ import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ProductsCategorySlugIndexRouteImport } from './routes/products.$categorySlug.index'
 import { Route as ProductsCategorySlugMachineSlugRouteImport } from './routes/products.$categorySlug.$machineSlug'
 
+const ThankYouRoute = ThankYouRouteImport.update({
+  id: '/thank-you',
+  path: '/thank-you',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -49,9 +55,9 @@ const IndustriesRoute = IndustriesRouteImport.update({
   path: '/industries',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
+const EnquiryRoute = EnquiryRouteImport.update({
+  id: '/enquiry',
+  path: '/enquiry',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareersRoute = CareersRouteImport.update({
@@ -101,12 +107,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
-  '/contact': typeof ContactRoute
+  '/enquiry': typeof EnquiryRoute
   '/industries': typeof IndustriesRoute
   '/news': typeof NewsRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/service': typeof ServiceRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/thank-you': typeof ThankYouRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/products/': typeof ProductsIndexRoute
@@ -117,12 +124,13 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
-  '/contact': typeof ContactRoute
+  '/enquiry': typeof EnquiryRoute
   '/industries': typeof IndustriesRoute
   '/news': typeof NewsRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/service': typeof ServiceRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/thank-you': typeof ThankYouRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog': typeof BlogIndexRoute
   '/products': typeof ProductsIndexRoute
@@ -134,12 +142,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
-  '/contact': typeof ContactRoute
+  '/enquiry': typeof EnquiryRoute
   '/industries': typeof IndustriesRoute
   '/news': typeof NewsRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/service': typeof ServiceRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/thank-you': typeof ThankYouRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/products/': typeof ProductsIndexRoute
@@ -152,12 +161,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/careers'
-    | '/contact'
+    | '/enquiry'
     | '/industries'
     | '/news'
     | '/privacy-policy'
     | '/service'
     | '/sitemap.xml'
+    | '/thank-you'
     | '/blog/$slug'
     | '/blog/'
     | '/products/'
@@ -168,12 +178,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/careers'
-    | '/contact'
+    | '/enquiry'
     | '/industries'
     | '/news'
     | '/privacy-policy'
     | '/service'
     | '/sitemap.xml'
+    | '/thank-you'
     | '/blog/$slug'
     | '/blog'
     | '/products'
@@ -184,12 +195,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/careers'
-    | '/contact'
+    | '/enquiry'
     | '/industries'
     | '/news'
     | '/privacy-policy'
     | '/service'
     | '/sitemap.xml'
+    | '/thank-you'
     | '/blog/$slug'
     | '/blog/'
     | '/products/'
@@ -201,12 +213,13 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   CareersRoute: typeof CareersRoute
-  ContactRoute: typeof ContactRoute
+  EnquiryRoute: typeof EnquiryRoute
   IndustriesRoute: typeof IndustriesRoute
   NewsRoute: typeof NewsRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ServiceRoute: typeof ServiceRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ThankYouRoute: typeof ThankYouRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
@@ -216,6 +229,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/thank-you': {
+      id: '/thank-you'
+      path: '/thank-you'
+      fullPath: '/thank-you'
+      preLoaderRoute: typeof ThankYouRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -251,11 +271,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndustriesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
+    '/enquiry': {
+      id: '/enquiry'
+      path: '/enquiry'
+      fullPath: '/enquiry'
+      preLoaderRoute: typeof EnquiryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -321,12 +341,13 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   CareersRoute: CareersRoute,
-  ContactRoute: ContactRoute,
+  EnquiryRoute: EnquiryRoute,
   IndustriesRoute: IndustriesRoute,
   NewsRoute: NewsRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   ServiceRoute: ServiceRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ThankYouRoute: ThankYouRoute,
   BlogSlugRoute: BlogSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,

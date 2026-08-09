@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 
@@ -8,25 +8,25 @@ import { PageHero } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
 import { site } from "@/data/site";
 
-export const Route = createFileRoute("/contact")({
+export const Route = createFileRoute("/enquiry")({
   head: () => ({
     meta: [
-      { title: "Contact — Berlin Machineries Private Limited" },
-      { name: "description", content: `Talk to Berlin Machineries. Call ${site.phone} or email ${site.email}. Based in Pune, India.` },
-      { property: "og:url", content: "https://www.berlinmachineries.com/contact" },
-      { property: "og:title", content: "Contact Berlin Machineries" },
+      { title: "Enquiry — Berlin Machineries Private Limited" },
+      { name: "description", content: `Send an enquiry to Berlin Machineries. Call ${site.phone} or email ${site.email}. Based in Pune, India.` },
+      { property: "og:url", content: "https://www.berlinmachineries.com/enquiry" },
+      { property: "og:title", content: "Enquiry — Berlin Machineries" },
       { property: "og:description", content: `Get a quote from Berlin Machineries. ${site.phone}` },
     ],
     links: [
-      { rel: "canonical", href: "https://www.berlinmachineries.com/contact" },
+      { rel: "canonical", href: "https://www.berlinmachineries.com/enquiry" },
     ],
   }),
-  component: ContactPage,
+  component: EnquiryPage,
 });
 
-function ContactPage() {
+function EnquiryPage() {
+  const navigate = useNavigate();
   const machineParam = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("machine") || "" : "";
-  const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -48,11 +48,10 @@ function ContactPage() {
         body: JSON.stringify(data),
         mode: "no-cors",
       });
-      setSent(true);
     } catch {
-      setSent(true);
+      // no-cors mode may throw but data is still sent
     } finally {
-      setSending(false);
+      navigate({ to: "/thank-you" });
     }
   };
   return (
@@ -105,29 +104,22 @@ function ContactPage() {
                 <div className="text-[11px] tracking-[0.3em] font-semibold text-berlin-red">ENQUIRY FORM</div>
                 <h3 className="mt-3 font-display font-black text-3xl md:text-4xl tracking-tight">Get a quote.</h3>
 
-                {sent ? (
-                  <div className="mt-8 p-6 border border-berlin-red bg-berlin-red/10">
-                    <div className="font-display font-bold text-xl">Thanks — we'll be in touch shortly.</div>
-                    <p className="mt-2 text-sm text-white/70">A Berlin engineer will reach out within one business day.</p>
+                <div className="mt-8 grid md:grid-cols-2 gap-4">
+                  <Field name="name" label="Full name" />
+                  <Field name="company" label="Company" />
+                  <Field name="email" label="Email" type="email" />
+                  <Field name="phone" label="Phone" />
+                  <div className="md:col-span-2">
+                    <Field name="interest" label="Machine of interest" defaultValue={machineParam} />
                   </div>
-                ) : (
-                  <div className="mt-8 grid md:grid-cols-2 gap-4">
-                    <Field name="name" label="Full name" />
-                    <Field name="company" label="Company" />
-                    <Field name="email" label="Email" type="email" />
-                    <Field name="phone" label="Phone" />
-                    <div className="md:col-span-2">
-                      <Field name="interest" label="Machine of interest" defaultValue={machineParam} />
-                    </div>
-                    <div className="md:col-span-2">
-                      <label className="block text-[10px] tracking-[0.25em] font-semibold text-white/60">MESSAGE</label>
-                      <textarea name="message" rows={4} className="mt-2 w-full bg-white/[0.04] border border-white/15 focus:border-berlin-red outline-none px-4 py-3 text-sm text-white placeholder:text-white/30" placeholder="Tell us about your application, parts, timeline…" />
-                    </div>
-                    <button type="submit" disabled={sending} className="md:col-span-2 mt-2 bg-berlin-red hover:bg-berlin-red-dark text-white py-4 text-sm font-bold tracking-[0.2em] transition-colors disabled:opacity-60">
-                      {sending ? "SENDING..." : "SEND ENQUIRY"}
-                    </button>
+                  <div className="md:col-span-2">
+                    <label className="block text-[10px] tracking-[0.25em] font-semibold text-white/60">MESSAGE</label>
+                    <textarea name="message" rows={4} className="mt-2 w-full bg-white/[0.04] border border-white/15 focus:border-berlin-red outline-none px-4 py-3 text-sm text-white placeholder:text-white/30" placeholder="Tell us about your application, parts, timeline…" />
                   </div>
-                )}
+                  <button type="submit" disabled={sending} className="md:col-span-2 mt-2 bg-berlin-red hover:bg-berlin-red-dark text-white py-4 text-sm font-bold tracking-[0.2em] transition-colors disabled:opacity-60">
+                    {sending ? "SENDING..." : "SEND ENQUIRY"}
+                  </button>
+                </div>
               </div>
             </form>
           </Reveal>

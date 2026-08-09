@@ -70,7 +70,7 @@ function MachinePage() {
             <p className="mt-4 text-white/60 max-w-xl leading-relaxed">{machine.description}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                to="/contact"
+                to="/enquiry"
                 search={{ machine: `${machine.name} (${category.name})` } as any}
                 className="inline-flex items-center gap-2 bg-berlin-red text-white px-6 py-3.5 text-sm font-bold tracking-[0.15em] hover:bg-berlin-red-dark transition-colors"
               >

@@ -26,7 +26,7 @@ const searchIndex: SearchItem[] = [
   { label: "Products", href: "/products", category: "Pages" },
   { label: "Industries We Serve", href: "/industries", category: "Pages" },
   { label: "Service & Support", href: "/service", category: "Pages" },
-  { label: "Contact Us", href: "/contact", category: "Pages" },
+  { label: "Enquiry", href: "/enquiry", category: "Pages" },
   { label: "Careers", href: "/careers", category: "Pages" },
   { label: "News & Updates", href: "/news", category: "Pages" },
   { label: "Blog & Insights", href: "/blog", category: "Pages" },
