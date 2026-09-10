@@ -1,0 +1,94 @@
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            background: #f5f5f6;
+            font-family: Arial, sans-serif;
+            color: #17171a
+        }
+
+        .card {
+            width: min(650px, calc(100% - 32px));
+            background: #fff;
+            padding: 46px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 55px rgba(0, 0, 0, .1);
+            text-align: center
+        }
+
+        .card img {
+            max-width: 300px;
+            margin: 0 auto 28px
+        }
+
+        .card h1 {
+            font-size: 46px;
+            margin: 0 0 12px
+        }
+
+        .card p {
+            color: #666870;
+            font-size: 17px;
+            line-height: 1.6
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 13px 22px;
+            border-radius: 6px;
+            background: #d90b24;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 800
+        }
+
+
+    /* Floating WhatsApp button - matches the round button style in the reference. */
+    .floating-whatsapp {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #25d366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 7px 22px rgba(0, 0, 0, .24);
+      z-index: 95;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .floating-whatsapp:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, .28);
+    }
+
+    .floating-whatsapp img {
+      width: 30px;
+      height: 30px;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .floating-whatsapp {
+        left: 14px;
+        bottom: 72px;
+        width: 50px;
+        height: 50px;
+      }
+
+      .floating-whatsapp img {
+        width: 28px;
+        height: 28px;
+      }
+    }
+
+    

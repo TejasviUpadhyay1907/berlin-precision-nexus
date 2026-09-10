@@ -8,6 +8,7 @@ const navItems = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
   { label: "Products", to: "/products", mega: true },
+  { label: "Overview", to: "/overview/", external: true },
   { label: "Industries", to: "/industries" },
   { label: "Services", to: "/service" },
   { label: "Careers", to: "/careers" },
@@ -50,16 +51,27 @@ export function Nav({ overHero = false }: { overHero?: boolean }) {
               onMouseEnter={() => item.mega && setMegaOpen(true)}
               onMouseLeave={() => item.mega && setMegaOpen(false)}
             >
-              <Link
-                to={item.to}
-                className={`px-4 py-2 text-sm font-medium tracking-wide inline-flex items-center gap-1 transition-colors relative
-                  ${solid ? "text-graphite hover:text-berlin-red" : "text-white/90 hover:text-white"}
-                  after:content-[''] after:absolute after:left-4 after:right-4 after:bottom-1 after:h-px after:bg-berlin-red after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300`}
-                activeProps={{ className: "text-berlin-red" }}
-              >
-                {item.label}
-                {item.mega && <ChevronDown className="h-3.5 w-3.5" />}
-              </Link>
+              {item.external ? (
+                <a
+                  href={item.to}
+                  className={`px-4 py-2 text-sm font-medium tracking-wide inline-flex items-center gap-1 transition-colors relative
+                    ${solid ? "text-graphite hover:text-berlin-red" : "text-white/90 hover:text-white"}
+                    after:content-[''] after:absolute after:left-4 after:right-4 after:bottom-1 after:h-px after:bg-berlin-red after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300`}
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  to={item.to}
+                  className={`px-4 py-2 text-sm font-medium tracking-wide inline-flex items-center gap-1 transition-colors relative
+                    ${solid ? "text-graphite hover:text-berlin-red" : "text-white/90 hover:text-white"}
+                    after:content-[''] after:absolute after:left-4 after:right-4 after:bottom-1 after:h-px after:bg-berlin-red after:scale-x-0 hover:after:scale-x-100 after:origin-left after:transition-transform after:duration-300`}
+                  activeProps={{ className: "text-berlin-red" }}
+                >
+                  {item.label}
+                  {item.mega && <ChevronDown className="h-3.5 w-3.5" />}
+                </Link>
+              )}
               {item.mega && megaOpen && (
                 <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[720px]">
                   <div className="bg-white border border-border shadow-2xl p-6 grid grid-cols-2 gap-x-8 gap-y-1 reveal-up">
@@ -109,14 +121,25 @@ export function Nav({ overHero = false }: { overHero?: boolean }) {
         <div className="lg:hidden bg-white border-t border-border">
           <div className="container-x py-4 flex flex-col gap-1">
             {navItems.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                onClick={() => setOpen(false)}
-                className="py-3 border-b border-border text-graphite font-medium"
-              >
-                {item.label}
-              </Link>
+              item.external ? (
+                <a
+                  key={item.to}
+                  href={item.to}
+                  onClick={() => setOpen(false)}
+                  className="py-3 border-b border-border text-graphite font-medium"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  className="py-3 border-b border-border text-graphite font-medium"
+                >
+                  {item.label}
+                </Link>
+              )
             ))}
             <Link
               to="/enquiry"
