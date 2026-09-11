@@ -892,7 +892,7 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 5px 12px 5px 5px;
+        padding: 5px 5px 5px 5px;
         background: var(--red);
         color: #fff;
         border-radius: 999px;
@@ -1034,7 +1034,7 @@
       }
 
       .brand img {
-        width: clamp(118px, 38vw, 170px)
+        width: 250px
       }
 
       .nav-actions {
@@ -1281,6 +1281,54 @@
       display: block;
     }
 
+    @keyframes floatingCallRing {
+      0% {
+        box-shadow: 0 0 0 0 rgba(217, 11, 36, .5)
+      }
+
+      70% {
+        box-shadow: 0 0 0 16px rgba(217, 11, 36, 0)
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(217, 11, 36, 0)
+      }
+    }
+
+    .floating-call {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--red);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 7px 22px rgba(217, 11, 36, .32);
+      z-index: 95;
+      transition: transform .2s ease
+    }
+
+    .floating-call::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      animation: floatingCallRing 1.8s ease-out infinite;
+      pointer-events: none
+    }
+
+    .floating-call:hover {
+      transform: translateY(-2px) scale(1.04)
+    }
+
+    .floating-call svg {
+      display: block
+    }
+
     @media (max-width: 900px) {
       .floating-whatsapp {
         left: 14px;
@@ -1292,6 +1340,18 @@
       .floating-whatsapp img {
         width: 28px;
         height: 28px;
+      }
+
+      .floating-call {
+        right: 14px;
+        bottom: 72px;
+        width: 50px;
+        height: 50px
+      }
+
+      .floating-call svg {
+        width: 24px;
+        height: 24px
       }
     }
 
