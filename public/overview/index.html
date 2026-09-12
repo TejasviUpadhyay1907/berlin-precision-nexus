@@ -659,13 +659,7 @@ Maharashtra, India<br><a href="tel:08069145413">080 6914 5413</a><br><a
             form.reset();
             modal.classList.remove('show');
             modal.setAttribute('aria-hidden', 'true');
-            // Show success message
-            const successEl = document.getElementById('successMessage');
-            if (successEl) {
-              successEl.style.display = 'block';
-              successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              setTimeout(() => { successEl.style.display = 'none'; }, 6000);
-            }
+            window.location.href = '/overview/thankyou.html';
           });
       }
 
@@ -708,9 +702,6 @@ Maharashtra, India<br><a href="tel:08069145413">080 6914 5413</a><br><a
     })();
   </script>
 
-  <!-- Success message (shown after form submission) -->
-  <div id="successMessage" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#16a05d;color:#fff;padding:16px 28px;border-radius:10px;font-weight:700;font-size:15px;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.18);">
-    ✅ Enquiry received! We'll get back to you within one business day.
-  </div>
+
 </body>
 </html>
