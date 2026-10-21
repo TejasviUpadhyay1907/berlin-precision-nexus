@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Enquiry Details — Berlin Machineries</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #C8102E;
+      --graphite: #111111;
+      --font-display: 'Inter Tight', system-ui, sans-serif;
+      --font-sans: 'Inter', system-ui, sans-serif;
+    }
+    html { -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font-sans);
+      background: #f4f4f6;
+      color: var(--graphite);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--graphite);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header img { height: 44px; width: auto; object-fit: contain; }
+    header a {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
+    }
+    header a:hover { color: var(--red); }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 20px 60px;
+    }
+    .card {
+      background: #fff;
+      width: min(680px, 100%);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    /* ── CARD HEADER ── */
+    .card-header {
+      background: var(--graphite);
+      padding: 28px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .card-header-inner { position: relative; z-index: 1; }
+    .card-eyebrow {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.35em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-eyebrow::before {
+      content: "";
+      display: inline-block;
+      width: 20px; height: 2px;
+      background: var(--red);
+    }
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .card-subtitle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ── FIELDS ── */
+    .card-body { padding: 0; }
+    .field-row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      border-bottom: 1px solid #f0f0f2;
+      transition: background 0.15s;
+    }
+    .field-row:last-child { border-bottom: none; }
+    .field-row:hover { background: #fafafa; }
+    .field-label {
+      padding: 18px 20px 18px 32px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #999;
+      border-right: 1px solid #f0f0f2;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .field-label svg { flex-shrink: 0; }
+    .field-value {
+      padding: 18px 32px 18px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--graphite);
+      display: flex;
+      align-items: center;
+      word-break: break-word;
+    }
+    .field-value.message {
+      align-items: flex-start;
+      line-height: 1.6;
+      font-weight: 400;
+      color: #444;
+    }
+    .field-value a {
+      color: var(--red);
+      text-decoration: none;
+    }
+    .field-value a:hover { text-decoration: underline; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      background: rgba(200,16,46,0.08);
+      border: 1px solid rgba(200,16,46,0.2);
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── CARD FOOTER ── */
+    .card-footer {
+      background: #f9f9fb;
+      border-top: 1px solid #eee;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .card-footer-note {
+      font-size: 12px;
+      color: #aaa;
+    }
+    .btn-reply {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--red);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-reply:hover { background: #a00d24; transform: translateY(-1px); }
+
+    /* ── INVALID STATE ── */
+    .invalid-state {
+      text-align: center;
+      padding: 60px 32px;
+    }
+    .invalid-icon {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: #fff0f2;
+      border: 2px solid rgba(200,16,46,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .invalid-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--graphite);
+      margin-bottom: 8px;
+    }
+    .invalid-sub { font-size: 13px; color: #999; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--graphite);
+      padding: 16px 24px;
+      text-align: center;
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+    }
+    footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    footer a:hover { color: var(--red); }
+
+    @media (max-width: 500px) {
+      .field-row { grid-template-columns: 1fr; }
+      .field-label { border-right: none; border-bottom: 1px solid #f0f0f2; padding: 12px 20px; }
+      .field-value { padding: 12px 20px; }
+      .card-header { padding: 20px; }
+      .card-footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="https://www.berlinmachineries.com/overview/">
+      <img src="assets/berlin-logo.png" alt="Berlin Machineries">
+    </a>
+    <a href="https://www.berlinmachineries.com/overview/">← Back to Overview</a>
+  </header>
+
+  <main>
+    <div class="card" id="enquiryCard">
+      <!-- Filled by JS -->
+    </div>
+  </main>
+
+  <footer>
+    © 2026 Berlin Machineries Private Limited ·
+    <a href="https://www.berlinmachineries.com/privacy-policy">Privacy Policy</a> ·
+    <a href="https://www.berlinmachineries.com">berlinmachineries.com</a>
+  </footer>
+
+  <script>
+    function decode(val) {
+      try { return decodeURIComponent(val || '').trim(); } catch { return (val || '').trim(); }
+    }
+
+    function formatDate(ts) {
+      if (!ts) return '—';
+      try {
+        const d = new Date(decodeURIComponent(ts));
+        return d.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+      } catch { return decode(ts); }
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const name     = decode(params.get('name'));
+    const phone    = decode(params.get('phone'));
+    const email    = decode(params.get('email'));
+    const product  = decode(params.get('product'));
+    const location = decode(params.get('location'));
+    const message  = decode(params.get('message'));
+    const company  = decode(params.get('company'));
+    const ts       = params.get('ts');
+    const card     = document.getElementById('enquiryCard');
+
+    if (!name && !phone && !email) {
+      // No valid data — show error state
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="card-header-inner">
+            <div class="card-eyebrow">Berlin Machineries</div>
+            <div class="card-title">Invalid Enquiry Link</div>
+            <div class="card-subtitle">This link does not contain valid enquiry data.</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="invalid-state">
+            <div class="invalid-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#C8102E" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="invalid-title">No Enquiry Data Found</div>
+            <div class="invalid-sub">This link is invalid or has been opened without the required parameters.<br>Please use the link provided in your enquiry notification email.</div>
+          </div>
+        </div>`;
+    } else {
+      // Build rows
+      const rows = [
+        { icon: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#C8102E"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>`, label: 'Full Name',       value: name     || '—', type: 'text' },
+        { icon: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#C8102E"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>`, label: 'Company',         value: company  || '—', type: 'text' },
+        { icon: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#C8102E"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>`, label: 'Phone',           value: phone    || '—', type: 'phone' },
+        { icon: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#C8102E"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>`, label: 'Email',           value: email    || '—', type: 'email' },
+        { icon: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#C8102E"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`, label: 'Product Interest', value: product  || '—', type: 'badge' },
+        { icon: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#C8102E"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`, label: 'Location',         value: location || '—', type: 'text' },
+        { icon: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#C8102E"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>`, label: 'Requirement',      value: message  || 'Not provided', type: 'message' },
+        { icon: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#C8102E"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>`, label: 'Submitted At',     value: formatDate(ts), type: 'text' },
+      ];
+
+      function renderValue(row) {
+        if (row.type === 'badge') return `<span class="badge">${row.value}</span>`;
+        if (row.type === 'phone') return `<a href="tel:${row.value.replace(/\s/g,'')}">${row.value}</a>`;
+        if (row.type === 'email') return `<a href="mailto:${row.value}">${row.value}</a>`;
+        return row.value;
+      }
+
+      const rowsHTML = rows.map(r => `
+        <div class="field-row">
+          <div class="field-label">${r.icon} ${r.label}</div>
+          <div class="field-value ${r.type === 'message' ? 'message' : ''}">${renderValue(r)}</div>
+        </div>`).join('');
+
+      const replyHref = email ? `mailto:${email}?subject=Re: Your Berlin Machineries Enquiry — ${encodeURIComponent(product || 'Machine')}&body=Dear ${encodeURIComponent(name)},%0A%0AThank you for your enquiry regarding ${encodeURIComponent(product || 'our machines')}.%0A%0A` : '#';
+
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="card-header-inner">
+            <div class="card-eyebrow">New Machine Enquiry</div>
+            <div class="card-title">${name || 'Enquiry Details'}</div>
+            <div class="card-subtitle">${product ? product + ' · ' : ''}${formatDate(ts)}</div>
+          </div>
+        </div>
+        <div class="card-body">${rowsHTML}</div>
+        <div class="card-footer">
+          <span class="card-footer-note">Enquiry submitted via berlinmachineries.com/overview/</span>
+          ${email ? `<a class="btn-reply" href="${replyHref}">↩ Reply to Enquiry</a>` : ''}
+        </div>`;
+    }
+  </script>
+</body>
+</html>
